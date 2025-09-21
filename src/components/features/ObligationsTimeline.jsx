@@ -10,7 +10,7 @@ export default function ObligationsTimeline({ obligations = [], keyDates = [] })
     setIsVisible(true);
   }, []);
 
-  // Combine obligations and key dates, sort by date
+  
   const allEvents = [
     ...obligations.map(o => ({
       ...o,

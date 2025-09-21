@@ -1,14 +1,14 @@
-// src/lib/legalAnalyzer.js
+
 import { GoogleGenerativeAI } from '@google/generative-ai';
 
-// Initialize Gemini
+
 const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
 
 export async function analyzeLegalDocument(text) {
   try {
     const model = genAI.getGenerativeModel({ model: "gemini-pro" });
 
-    // Create a comprehensive prompt for legal analysis
+    
     const prompt = `
 You are a legal document analyzer. Analyze the following legal document and provide insights in JSON format.
 
@@ -68,22 +68,22 @@ Important:
     const response = await result.response;
     const responseText = response.text();
     
-    // Clean the response to ensure it's valid JSON
+    
     let cleanedResponse = responseText;
     
-    // Remove markdown code blocks if present
+    
     cleanedResponse = cleanedResponse.replace(/```json\n?/g, '');
     cleanedResponse = cleanedResponse.replace(/```\n?/g, '');
     cleanedResponse = cleanedResponse.trim();
     
-    // Parse the JSON response
+    
     const analysis = JSON.parse(cleanedResponse);
     
     return analysis;
   } catch (error) {
     console.error('Error analyzing document:', error);
     
-    // Return a fallback analysis if AI fails
+    
     return {
       documentType: "Unable to determine",
       summary: "Error analyzing document. The AI service encountered an issue.",
@@ -101,7 +101,7 @@ Important:
   }
 }
 
-// Helper function to identify common risky patterns
+
 export function identifyCommonRisks(text) {
   const risks = [];
   

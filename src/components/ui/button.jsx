@@ -19,7 +19,7 @@ const buttonVariants = cva(
           "bg-secondary text-secondary-foreground shadow-sm hover:bg-secondary/80",
         ghost: "hover:bg-accent hover:text-accent-foreground",
         link: "text-primary underline-offset-4 hover:underline",
-        // ✨ New gradient variant
+        
         gradient:
           "bg-gradient-to-r from-indigo-400 via-pink-500 to-purple-500 text-white shadow-md hover:shadow-lg hover:brightness-110 transition-transform hover:scale-105",
       },
@@ -27,7 +27,7 @@ const buttonVariants = cva(
         default: "h-9 px-4 py-2 text-sm",
         sm: "h-8 rounded-md px-3 text-xs",
         lg: "h-10 rounded-md px-6 text-base",
-        xl: "h-12 rounded-lg px-8 text-lg font-semibold", // new "big CTA" size
+        xl: "h-12 rounded-lg px-8 text-lg font-semibold", 
         icon: "h-9 w-9",
       },
     },

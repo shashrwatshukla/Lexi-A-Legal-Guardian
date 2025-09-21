@@ -6,9 +6,9 @@ import { useState } from "react";
 export default function DocumentHeatmap({ clauses = [], totalPages = 10 }) {
   const [hoveredClause, setHoveredClause] = useState(null);
 
-  // Calculate positions for each clause
+  
   const getClausePosition = (clause) => {
-    // Extract page number from location if available
+    
     const pageMatch = clause.location?.match(/page (\d+)/i);
     const page = pageMatch ? parseInt(pageMatch[1]) : Math.floor(Math.random() * totalPages) + 1;
     return (page / totalPages) * 100;

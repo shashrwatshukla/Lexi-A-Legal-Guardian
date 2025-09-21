@@ -10,7 +10,7 @@ import Chatbot from "../components/chatbot/ChatBot";
 import { setDocumentAnalysis, clearDocumentAnalysis } from '../lib/documentContext';
 import { gsap } from 'gsap';
 
-// MagicBento Card Component
+
 const MagicFeatureCard = ({
   feature,
   index,
@@ -254,7 +254,7 @@ const MagicFeatureCard = ({
     };
   }, [enableStars, enableTilt, enableMagnetism, clickEffect, glowColor]);
 
-  // Map gradient colors based on feature gradient
+  
   const getGlowColor = () => {
     if (feature.gradient.includes('blue')) return "66, 153, 225";
     if (feature.gradient.includes('purple')) return "159, 122, 234";
@@ -324,7 +324,7 @@ const MagicFeatureCard = ({
 export default function Home() {
   const router = useRouter();
   
-  // Check if user is authenticated
+  
   useEffect(() => {
     const isAuthenticated = localStorage.getItem('isAuthenticated');
     if (isAuthenticated !== 'true') {
@@ -341,30 +341,30 @@ export default function Home() {
   const mainContentRef = useRef(null);
   const uploadSectionRef = useRef(null);
 
-  // Smooth scroll animations
+  
   const { scrollY } = useScroll();
   const heroOpacity = useTransform(scrollY, [0, 300], [1, 0]);
   const heroScale = useTransform(scrollY, [0, 300], [1, 0.8]);
 
-  // Arc animation controls
+  
   const arcControls = useAnimation();
   const dotControls = useAnimation();
   const titleControls = useAnimation();
 
-  // Intro animation sequence
+  
   useEffect(() => {
     const runIntroAnimation = async () => {
-      // Start with arcs animation
+      
       await arcControls.start("animate");
 
-      // Then spin the dot
+      
       await dotControls.start({
         rotate: 720,
         scale: [1, 1.5, 1],
         transition: { duration: 1.5, ease: "easeInOut" }
       });
 
-      // Finally reveal the title
+      
       await titleControls.start({
         opacity: 1,
         scale: 1,
@@ -372,7 +372,7 @@ export default function Home() {
         transition: { duration: 0.8, ease: "easeOut" }
       });
 
-      // Mark intro as complete
+      
       setTimeout(() => {
         setIntroComplete(true);
       }, 500);
@@ -389,7 +389,7 @@ export default function Home() {
     setUploadProgress(0);
     setAnalyzing(true);
 
-    // Simulate upload progress
+    
     const progressInterval = setInterval(() => {
       setUploadProgress((prev) => {
         if (prev >= 90) {
@@ -401,11 +401,11 @@ export default function Home() {
     }, 200);
 
     try {
-      // Create FormData and append the file
+      
       const formData = new FormData();
       formData.append('file', file);
 
-      // Call your API endpoint
+      
       const response = await fetch('/api/document-process', {
         method: 'POST',
         body: formData,
@@ -413,20 +413,20 @@ export default function Home() {
 
       const data = await response.json();
       
-      // Clear the progress interval
+      
       clearInterval(progressInterval);
       setUploadProgress(100);
 
       if (data.success && data.analysis) {
-        // Pass the analysis data directly from the API response
+        
         setAnalysisResult(data.analysis);
         
-        // Store the analysis in the shared context
+        
         if (data.analysis && data.analysis.metadata) {
           setDocumentAnalysis(data.analysis, data.analysis.metadata.fileName);
         }
 
-        // ADD THIS: Store document info for chatbot
+        
         sessionStorage.setItem('uploadedDocument', JSON.stringify({
           fileName: file.name,
           uploadTime: new Date().toISOString()
@@ -435,7 +435,7 @@ export default function Home() {
         setShowSuccessNotification(true);
         setTimeout(() => setShowSuccessNotification(false), 5000);
       } else {
-        // Handle error
+        
         console.error('Analysis failed:', data.error);
         alert(data.error || 'Analysis failed. Please try again.');
         setAnalysisResult(null);
@@ -453,9 +453,9 @@ export default function Home() {
   };
 
   const exportAnalysis = () => {
-    // This is a placeholder for export functionality
+    
     console.log("Exporting analysis...");
-    // You would implement actual DOCX export here
+    
   };
 
   return (
@@ -1027,7 +1027,7 @@ export default function Home() {
               setAnalysisResult(null);
               setUploadedFile(null);
               
-              // Clear the shared document context
+              
               clearDocumentAnalysis();
               
               window.scrollTo({ top: uploadSectionRef.current.offsetTop - 100, behavior: 'smooth' });
@@ -1098,7 +1098,7 @@ export default function Home() {
                   gradient: "from-pink-600 to-rose-600"
                 }
               ].concat([
-                // Duplicate the features for seamless loop
+                
                 {
                   icon: "🛡️",
                   title: "Complete Protection",

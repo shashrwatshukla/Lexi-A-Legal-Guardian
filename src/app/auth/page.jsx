@@ -10,7 +10,7 @@ export default function AuthPage() {
   const [signupData, setSignupData] = useState({ username: '', email: '', password: '' });
   const router = useRouter();
 
-  // Check if user is already "logged in"
+  
   useEffect(() => {
     const isAuthenticated = localStorage.getItem('isAuthenticated');
     if (isAuthenticated === 'true') {
@@ -18,7 +18,7 @@ export default function AuthPage() {
     }
   }, [router]);
 
-  // Handle login (bypass - accepts any credentials)
+  
   const handleLogin = (e) => {
     e.preventDefault();
     if (loginData.username && loginData.password) {
@@ -28,7 +28,7 @@ export default function AuthPage() {
     }
   };
 
-  // Handle signup (bypass - accepts any credentials)
+  
   const handleSignup = (e) => {
     e.preventDefault();
     if (signupData.username && signupData.email && signupData.password) {

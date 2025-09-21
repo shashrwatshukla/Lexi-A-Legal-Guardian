@@ -13,7 +13,7 @@ import PositiveClausesCarousel from "./features/PositiveClausesCarousel";
 import ActionItems from "./features/ActionItems";
 import FinalVerdictBar from "./features/FinalVerdictBar";
 
-// Animation variants for enhanced effects
+
 const fadeInUp = {
   initial: { opacity: 0, y: 60 },
   animate: { opacity: 1, y: 0 },
@@ -38,10 +38,10 @@ export default function AnalysisResults({ analysisResult, onExportAnalysis, onAn
   const [expandedClauses, setExpandedClauses] = useState({});
   const [showChatbotHint, setShowChatbotHint] = useState(true);
 
-  // The analysisResult is already the analysis object
+  
   const analysis = analysisResult;
   
-  // Store the analysis in context when component mounts
+  
   useEffect(() => {
     if (analysis && analysis.metadata) {
       setDocumentAnalysis(analysis, analysis.metadata.fileName);
@@ -526,7 +526,7 @@ export default function AnalysisResults({ analysisResult, onExportAnalysis, onAn
             }}
             whileTap={{ scale: 0.95 }}
             onClick={() => {
-              // Trigger chatbot opening
+              
               document.body.classList.add("show-chatbot");
               setShowChatbotHint(false);
             }}
