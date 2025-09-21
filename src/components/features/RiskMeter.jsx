@@ -7,7 +7,7 @@ export default function RiskMeter({ score = 0, riskLevel = "Medium" }) {
   const [animatedScore, setAnimatedScore] = useState(0);
 
   useEffect(() => {
-    // Animate the score from 0 to the actual value
+    
     const timer = setTimeout(() => {
       setAnimatedScore(score);
     }, 100);
@@ -15,9 +15,9 @@ export default function RiskMeter({ score = 0, riskLevel = "Medium" }) {
   }, [score]);
 
   const getColor = () => {
-    if (animatedScore < 33) return "#10b981"; // green
-    if (animatedScore < 66) return "#f59e0b"; // amber
-    return "#ef4444"; // red
+    if (animatedScore < 33) return "#10b981"; 
+    if (animatedScore < 66) return "#f59e0b"; 
+    return "#ef4444"; 
   };
 
   const rotation = (animatedScore / 100) * 180 - 90;

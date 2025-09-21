@@ -15,23 +15,23 @@ export default function ChatBot() {
   const documentAnalysisRef = useRef(null);
   const conversationHistoryRef = useRef([]);
 
-  // Check if document was uploaded on main page
-  // Check if document was uploaded on main page
+  
+  
   const [hasCheckedMainDoc, setHasCheckedMainDoc] = useState(false);
 
   useEffect(() => {
-    // Check when chatbot is opened
+    
     const checkForMainPageDocument = () => {
       if (document.body.classList.contains('show-chatbot') && !hasCheckedMainDoc) {
         const mainPageDocument = sessionStorage.getItem('uploadedDocument');
         if (mainPageDocument) {
           const docData = JSON.parse(mainPageDocument);
 
-          // Add the notice message
+          
           setTimeout(() => {
             const chatBody = document.querySelector('.chat-body');
             if (chatBody) {
-              // Check if we already have this message
+              
               const existingNotice = Array.from(chatBody.querySelectorAll('.message-text')).find(
                 el => el.textContent.includes('I noticed you uploaded')
               );
@@ -58,7 +58,7 @@ export default function ChatBot() {
       }
     };
 
-    // Check when chatbot opens
+    
     const observer = new MutationObserver(() => {
       checkForMainPageDocument();
     });
@@ -68,7 +68,7 @@ export default function ChatBot() {
       attributeFilter: ['class']
     });
 
-    // Also check immediately if chatbot is already open
+    
     checkForMainPageDocument();
 
     return () => {
@@ -79,17 +79,17 @@ export default function ChatBot() {
   useEffect(() => {
     console.log('Chatbot component mounted');
 
-    // Show welcome popup after a short delay
+    
     setTimeout(() => {
       setShowWelcome(true);
     }, 1000);
 
-    // Hide welcome popup after 5 seconds
+    
     const welcomeTimer = setTimeout(() => {
       setShowWelcome(false);
     }, 6000);
 
-    // Hide welcome popup on click outside
+    
     const handleClickOutside = (e) => {
       if (!e.target.closest('.welcome-popup') && !e.target.closest('#chatbot-toggler')) {
         setShowWelcome(false);
@@ -97,7 +97,7 @@ export default function ChatBot() {
     };
     document.addEventListener('click', handleClickOutside);
 
-    // Load Material Symbols if not already loaded
+    
     if (!document.querySelector('link[href*="Material+Symbols"]')) {
       const link = document.createElement('link');
       link.rel = 'stylesheet';
@@ -105,7 +105,7 @@ export default function ChatBot() {
       document.head.appendChild(link);
     }
 
-    // Load emoji picker script
+    
     const emojiScript = document.createElement('script');
     emojiScript.src = 'https://cdn.jsdelivr.net/npm/emoji-mart@latest/dist/browser.js';
     emojiScript.async = true;
@@ -115,7 +115,7 @@ export default function ChatBot() {
     };
     document.body.appendChild(emojiScript);
 
-    // Initialize chatbot functionality
+    
     const initializeChatbot = () => {
       console.log('Initializing chatbot...');
 
@@ -135,10 +135,10 @@ export default function ChatBot() {
         return;
       }
 
-      // Store file input ref
+      
       fileInputRef.current = fileInput;
 
-      // API SETUP
+      
       const API_KEY = process.env.NEXT_PUBLIC_GEMINI_CHATBOT_API_KEY || '';
       if (!API_KEY) {
         console.warn('Gemini API key not found in environment variables');
@@ -149,7 +149,7 @@ export default function ChatBot() {
       let recognition = null;
       let isRecording = false;
 
-      // Initialize speech recognition
+      
       if ('webkitSpeechRecognition' in window || 'SpeechRecognition' in window) {
         const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
         recognition = new SpeechRecognition();
@@ -178,10 +178,10 @@ export default function ChatBot() {
         };
       }
 
-      // Speech synthesis for bot responses (on-demand only)
+      
       const speakText = (text, button) => {
         if ('speechSynthesis' in window) {
-          // If already speaking this message, stop it
+          
           if (currentlySpeakingRef.current === button) {
             window.speechSynthesis.cancel();
             button.classList.remove('speaking');
@@ -189,7 +189,7 @@ export default function ChatBot() {
             return;
           }
 
-          // Cancel any other ongoing speech
+          
           window.speechSynthesis.cancel();
           if (currentlySpeakingRef.current) {
             currentlySpeakingRef.current.classList.remove('speaking');
@@ -200,7 +200,7 @@ export default function ChatBot() {
           utterance.pitch = 1.1;
           utterance.volume = 0.9;
 
-          // Get available voices and select a natural female voice
+          
           const voices = window.speechSynthesis.getVoices();
           const femaleVoice = voices.find(voice =>
             (voice.name.includes('Female') || voice.name.includes('Samantha') ||
@@ -225,7 +225,7 @@ export default function ChatBot() {
         }
       };
 
-      // MESSAGE HELPERS
+      
       const createMessageElement = (content, ...classes) => {
         const div = document.createElement("div");
         div.classList.add("message", ...classes);
@@ -233,7 +233,7 @@ export default function ChatBot() {
         return div;
       };
 
-      // Add speak button to bot messages
+      
       const addSpeakButton = (messageDiv, text) => {
         const speakBtn = document.createElement('button');
         speakBtn.className = 'speak-button';
@@ -245,7 +245,7 @@ export default function ChatBot() {
         messageText.appendChild(speakBtn);
       };
 
-      // Analyze document function
+      
       const analyzeDocument = async (file) => {
         try {
           setIsAnalyzing(true);
@@ -275,16 +275,16 @@ export default function ChatBot() {
         }
       };
 
-      // BOT RESPONSE
+      
       const generateBotResponse = async (incomingMessageDiv) => {
         const messageElement = incomingMessageDiv.querySelector(".message-text");
 
         try {
-          // Build conversation history
+          
           const messages = [];
 
 
-          // Check if we have a document analysis
+          
           if (documentAnalysisRef.current) {
             const analysis = documentAnalysisRef.current;
             const systemMessage = {
@@ -317,18 +317,18 @@ Remember this context for all following questions.`
             messages.push(systemMessage);
           }
 
-          // Add conversation history
+          
           conversationHistoryRef.current.forEach(msg => {
             messages.push(msg);
           });
 
-          // Add current user message
+          
           messages.push({
             role: "user",
             parts: [{ text: userData.message }]
           });
 
-          // Store user message in history
+          
           conversationHistoryRef.current.push({
             role: "user",
             parts: [{ text: userData.message }]
@@ -349,27 +349,27 @@ Remember this context for all following questions.`
 
           let apiResponseText = data.candidates?.[0]?.content?.parts?.[0]?.text || "I couldn't generate a response. Please try again.";
 
-          // Convert markdown-style formatting to HTML
+          
           apiResponseText = apiResponseText
-            .replace(/\*\*\*(.*?)\*\*\*/g, '<strong><em>$1</em></strong>') // ***text*** to bold italic
-            .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>') // **text** to bold
-            .replace(/\*(.*?)\*/g, '<em>$1</em>') // *text* to italic
-            .replace(/\n/g, '<br>'); // newlines to <br>
+            .replace(/\*\*\*(.*?)\*\*\*/g, '<strong><em>$1</em></strong>') 
+            .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>') 
+            .replace(/\*(.*?)\*/g, '<em>$1</em>') 
+            .replace(/\n/g, '<br>'); 
 
           messageElement.innerHTML = apiResponseText.trim();
 
-          // Store bot response in history
+          
           conversationHistoryRef.current.push({
             role: "model",
             parts: [{ text: apiResponseText.trim() }]
           });
 
-          // Keep conversation history limited to last 10 exchanges
+          
           if (conversationHistoryRef.current.length > 20) {
             conversationHistoryRef.current = conversationHistoryRef.current.slice(-20);
           }
 
-          // Add speak button
+          
           addSpeakButton(incomingMessageDiv, apiResponseText.trim());
 
         } catch (error) {
@@ -381,13 +381,13 @@ Remember this context for all following questions.`
         chatBody.scrollTo({ top: chatBody.scrollHeight, behavior: "smooth" });
       };
 
-      // USER MESSAGE
+      
       const handleOutgoingMessage = (e) => {
         e.preventDefault();
         userData.message = messageInput.value.trim();
         if (!userData.message && !userData.file.data) return;
 
-        // Stop any ongoing speech
+        
         window.speechSynthesis.cancel();
         if (currentlySpeakingRef.current) {
           currentlySpeakingRef.current.classList.remove('speaking');
@@ -417,12 +417,12 @@ Remember this context for all following questions.`
           const incomingMessageDiv = createMessageElement(messageContent, "bot-message", "thinking");
           chatBody.appendChild(incomingMessageDiv);
           chatBody.scrollTo({ top: chatBody.scrollHeight, behavior: "smooth" });
-          // Pass the current document analysis to the bot response
+          
           generateBotResponse(incomingMessageDiv);
         }, 600);
       };
 
-      // VOICE INPUT
+      
       voiceInputBtn?.addEventListener("click", () => {
         if (!recognition) {
           alert("Speech recognition is not supported in your browser.");
@@ -440,7 +440,7 @@ Remember this context for all following questions.`
         }
       });
 
-      // EVENTS
+      
       messageInput?.addEventListener("keydown", (e) => {
         const userMessage = e.target.value.trim();
         if (e.key === "Enter" && !e.shiftKey && userMessage) {
@@ -451,20 +451,20 @@ Remember this context for all following questions.`
 
       sendMessageButton?.addEventListener("click", handleOutgoingMessage);
 
-      // File upload button - Fixed to prevent multiple triggers
+      
       const fileUploadBtn = document.querySelector("#file-upload");
       if (fileUploadBtn) {
         fileUploadBtn.addEventListener("click", (e) => {
           e.preventDefault();
           e.stopPropagation();
 
-          // Prevent multiple clicks
+          
           if (isProcessingFileRef.current) {
             console.log('File processing already in progress');
             return;
           }
 
-          // Clear the file input value before clicking
+          
           if (fileInput) {
             fileInput.value = "";
             fileInput.click();
@@ -472,29 +472,29 @@ Remember this context for all following questions.`
         });
       }
 
-      // Handle file input change - Fixed to prevent multiple uploads
+      
       fileInput?.addEventListener("change", async (e) => {
         const file = fileInput.files[0];
         if (!file || isProcessingFileRef.current) return;
 
-        // Set processing flag immediately
+        
         isProcessingFileRef.current = true;
 
         try {
           console.log(`Processing file: ${file.name}`);
 
-          // Store the uploaded document
+          
           setUploadedDocument(file);
-          // Clear conversation history for new document
+          
           conversationHistoryRef.current = [];
 
-          // Disable input during analysis
+          
           const messageInput = document.querySelector('.message-input');
           const sendButton = document.querySelector('#send-message');
           if (messageInput) messageInput.disabled = true;
           if (sendButton) sendButton.disabled = true;
 
-          // Show uploading message
+          
           const uploadingMessage = `Uploading "${file.name}"...`;
           const botAvatar = `<svg class="bot-avatar" xmlns="http://www.w3.org/2000/svg" width="50" height="50" viewBox="0 0 1024 1024">
             <path d="M738.3 287.6H285.7c-59 0-106.8 47.8-106.8 106.8v303.1c0 59 47.8 106.8 106.8 106.8h81.5v111.1c0 .7.8 1.1 1.4.7l166.9-110.6 41.8-.8h117.4l43.6-.4c59 0 106.8-47.8 106.8-106.8V394.5c0-59-47.8-106.9-106.8-106.9zM351.7 448.2c0-29.5 23.9-53.5 53.5-53.5s53.5 23.9 53.5 53.5-23.9 53.5-53.5 53.5-53.5-23.9-53.5-53.5zm157.9 267.1c-67.8 0-123.8-47.5-132.3-109h264.6c-8.6 61.5-64.5 109-132.3 109zm110-213.7c-29.5 0-53.5-23.9-53.5-53.5s23.9-53.5 53.5-53.5 53.5 23.9 53.5 53.5-23.9 53.5-53.5 53.5zM867.2 644.5V453.1h26.5c19.4 0 35.1 15.7 35.1 35.1v121.1c0 19.4-15.7 35.1-35.1 35.1h-26.5zM95.2 609.4V488.2c0-19.4 15.7-35.1 35.1-35.1h26.5v191.3h-26.5c-19.4 0-35.1-15.7-35.1-35.1zM561.5 149.6c0 23.4-15.6 43.3-36.9 49.7v44.9h-30v-44.9c-21.4-6.5-36.9-26.3-36.9-49.7 0-28.6 23.3-51.9 51.9-51.9s51.9 23.3 51.9 51.9z"></path>
@@ -508,14 +508,14 @@ Remember this context for all following questions.`
           chatBody.appendChild(uploadingDiv);
           chatBody.scrollTo({ top: chatBody.scrollHeight, behavior: "smooth" });
 
-          // Analyze the document
+          
           try {
             const analysis = await analyzeDocument(file);
 
-            // Remove uploading message
+            
             uploadingDiv.remove();
 
-            // Show success message with analysis summary
+            
             const successMessage = `✅ Document "${file.name}" analyzed successfully!
 
 📊 <strong>Analysis Summary:</strong>
@@ -536,19 +536,19 @@ You can now ask me any questions about this document!`;
             chatBody.appendChild(successDiv);
             chatBody.scrollTo({ top: chatBody.scrollHeight, behavior: "smooth" });
 
-            // Re-enable input after analysis
+            
             const messageInput = document.querySelector('.message-input');
             const sendButton = document.querySelector('#send-message');
             if (messageInput) messageInput.disabled = false;
             if (sendButton) sendButton.disabled = false;
-            // Clear the main page document reference since we now have it in chatbot
+            
             sessionStorage.removeItem('uploadedDocument');
 
           } catch (analysisError) {
-            // Remove uploading message
+            
             uploadingDiv.remove();
 
-            // Show error message
+            
             const errorContent = `
               ${botAvatar}
               <div class="message-text">
@@ -558,11 +558,11 @@ You can now ask me any questions about this document!`;
             chatBody.appendChild(errorDiv);
             chatBody.scrollTo({ top: chatBody.scrollHeight, behavior: "smooth" });
 
-            // Clear the uploaded document on error
+            
             setUploadedDocument(null);
             setDocumentAnalysis(null);
 
-            // Re-enable input on error
+            
             const messageInput = document.querySelector('.message-input');
             const sendButton = document.querySelector('#send-message');
             if (messageInput) messageInput.disabled = false;
@@ -570,13 +570,13 @@ You can now ask me any questions about this document!`;
           }
 
         } finally {
-          // Clear the file input and reset processing flag
+          
           fileInput.value = "";
           isProcessingFileRef.current = false;
         }
       });
 
-      // Handle cancel file
+      
       fileCancelButton?.addEventListener("click", () => {
         userData.file = {};
         fileUploadWrapper.classList.remove("active");
@@ -584,7 +584,7 @@ You can now ask me any questions about this document!`;
         if (img) img.src = "";
       });
 
-      // Emoji picker
+      
       if (window.EmojiMart && emojiPickerBtn) {
         const picker = new window.EmojiMart.Picker({
           theme: "light",
@@ -603,7 +603,7 @@ You can now ask me any questions about this document!`;
         });
       }
 
-      // Chatbot toggle
+      
       chatbotToggler.addEventListener("click", () => {
         console.log('Toggler clicked!');
         document.body.classList.toggle("show-chatbot");
@@ -613,7 +613,7 @@ You can now ask me any questions about this document!`;
       closeChatbot?.addEventListener("click", () => {
         console.log('Close button clicked!');
         document.body.classList.remove("show-chatbot");
-        window.speechSynthesis.cancel(); // Stop speech when closing
+        window.speechSynthesis.cancel(); 
         if (currentlySpeakingRef.current) {
           currentlySpeakingRef.current.classList.remove('speaking');
           currentlySpeakingRef.current = null;
@@ -624,14 +624,14 @@ You can now ask me any questions about this document!`;
       setIsLoaded(true);
     };
 
-    // If emoji script fails to load, still initialize chatbot
+    
     setTimeout(() => {
       if (!isLoaded) {
         initializeChatbot();
       }
     }, 2000);
 
-    // Cleanup
+    
     return () => {
       clearTimeout(welcomeTimer);
       document.removeEventListener('click', handleClickOutside);
@@ -668,7 +668,7 @@ You can now ask me any questions about this document!`;
           <button type="button" id="clear-chat" title="Clear chat history" onClick={() => {
             conversationHistoryRef.current = [];
             const chatBody = document.querySelector('.chat-body');
-            // Keep only the first welcome message
+            
             const messages = chatBody.querySelectorAll('.message');
             messages.forEach((msg, index) => {
               if (index > 0) msg.remove();

@@ -1,8 +1,8 @@
-// src/lib/legalPatterns.js
 
 
 
-// Database of legal risk indicators and patterns
+
+
 
 export const riskKeywords = [
 

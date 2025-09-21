@@ -1,4 +1,4 @@
-// ChatbotScript.js
+
 const initializeChatbot = () => {
   const chatBody = document.querySelector(".chat-body");
   const messageInput = document.querySelector(".message-input");
@@ -10,14 +10,14 @@ const initializeChatbot = () => {
   const closeChatbot = document.querySelector("#close-chatbot");
   const emojiPickerBtn = document.querySelector("#emoji-picker");
 
-  // ================= API SETUP =================
-  // Get API key from environment variable
+  
+  
   const API_KEY = process.env.NEXT_PUBLIC_GEMINI_CHATBOT_API_KEY;
   const API_URL = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${API_KEY}`;
 
   const userData = { message: null, mime_type: null, file: {} };
 
-  // ================= MESSAGE HELPERS =================
+  
   const createMessageElement = (content, ...classes) => {
     const div = document.createElement("div");
     div.classList.add("message", ...classes);
@@ -25,11 +25,11 @@ const initializeChatbot = () => {
     return div;
   };
 
-  // ================= BOT RESPONSE =================
+  
   const generateBotResponse = async (incomingMessageDiv) => {
     const messageElement = incomingMessageDiv.querySelector(".message-text");
 
-    // Add context about LegalDoc
+    
     const systemContext = "You are a helpful assistant for LegalDoc, a platform for uploading and processing legal documents. Help users with questions about legal document processing, uploading documents, and general legal document queries. Be professional and helpful.";
 
     const requestOptions = {
@@ -62,7 +62,7 @@ const initializeChatbot = () => {
     }
   };
 
-  // ================= USER MESSAGE =================
+  
   const handleOutgoingMessage = (e) => {
     e.preventDefault();
     userData.message = messageInput.value.trim();
@@ -94,7 +94,7 @@ const initializeChatbot = () => {
     }, 600);
   };
 
-  // ================= EVENTS =================
+  
   messageInput.addEventListener("keydown", (e) => {
     const userMessage = e.target.value.trim();
     if (e.key === "Enter" && !e.shiftKey && userMessage) {
@@ -104,10 +104,10 @@ const initializeChatbot = () => {
   });
   sendMessageButton.addEventListener("click", handleOutgoingMessage);
 
-  // File upload button
+  
   document.querySelector("#file-upload").addEventListener("click", () => fileInput.click());
 
-  // Handle file input change
+  
   fileInput.addEventListener("change", () => {
     const file = fileInput.files[0];
     if (!file) return;
@@ -124,14 +124,14 @@ const initializeChatbot = () => {
     reader.readAsDataURL(file);
   });
 
-  // Handle cancel file
+  
   fileCancelButton.addEventListener("click", () => {
     userData.file = {};
     fileUploadWrapper.classList.remove("active");
     fileUploadWrapper.querySelector("img").src = "";
   });
 
-  // Emoji picker
+  
   if (window.EmojiMart) {
     const picker = new window.EmojiMart.Picker({
       theme: "light",
@@ -150,12 +150,12 @@ const initializeChatbot = () => {
     });
   }
 
-  // Chatbot toggle
+  
   chatbotToggler.addEventListener("click", () => document.body.classList.toggle("show-chatbot"));
   closeChatbot.addEventListener("click", () => document.body.classList.remove("show-chatbot"));
 };
 
-// Initialize when DOM is ready
+
 if (document.readyState === 'loading') {
   document.addEventListener('DOMContentLoaded', initializeChatbot);
 } else {

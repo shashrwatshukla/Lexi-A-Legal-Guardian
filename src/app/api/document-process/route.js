@@ -1,27 +1,27 @@
-// src/app/api/document-process/route.js
+
 import { NextResponse } from 'next/server';
 import { GoogleGenerativeAI } from '@google/generative-ai';
 
-// Check API key
+
 console.log('Gemini API Key exists:', !!process.env.GEMINI_API_KEY);
 
-// Initialize Gemini
+
 const genAI = process.env.GEMINI_API_KEY ? new GoogleGenerativeAI(process.env.GEMINI_API_KEY) : null;
 
-// Enhanced DOCX to text converter
+
 async function convertDocxToText(arrayBuffer) {
   try {
     const uint8Array = new Uint8Array(arrayBuffer);
     
-    // Convert to string to search for XML content
+    
     let binaryString = '';
-    const chunkSize = 0x8000; // Process in chunks to avoid memory issues
+    const chunkSize = 0x8000; 
     for (let i = 0; i < uint8Array.length; i += chunkSize) {
       const chunk = uint8Array.slice(i, i + chunkSize);
       binaryString += String.fromCharCode.apply(null, Array.from(chunk));
     }
     
-    // Method 1: Look for document.xml content
+    
     const docXmlStart = binaryString.indexOf('word/document.xml');
     if (docXmlStart !== -1) {
       const xmlContentStart = binaryString.indexOf('<?xml', docXmlStart);
@@ -30,10 +30,10 @@ async function convertDocxToText(arrayBuffer) {
         if (xmlContentEnd !== -1) {
           const xmlContent = binaryString.substring(xmlContentStart, xmlContentEnd + 13);
           
-          // Extract text from the XML content
+          
           const textMatches = [];
           
-          // Extract from w:t tags
+          
           const wtPattern = /<w:t[^>]*>([^<]*)<\/w:t>/g;
           let match;
           while ((match = wtPattern.exec(xmlContent)) !== null) {
@@ -45,7 +45,7 @@ async function convertDocxToText(arrayBuffer) {
           if (textMatches.length > 0) {
             let text = textMatches.join(' ');
             
-            // Clean up the text
+            
             text = text
               .replace(/&amp;/g, '&')
               .replace(/&lt;/g, '<')
@@ -64,7 +64,7 @@ async function convertDocxToText(arrayBuffer) {
       }
     }
     
-    // Method 2: Direct search for text patterns
+    
     const textMatches = [];
     const wtPattern = /<w:t[^>]*>([^<]+)<\/w:t>/g;
     let match;
@@ -95,21 +95,21 @@ async function convertDocxToText(arrayBuffer) {
   }
 }
 
-// Retry function with exponential backoff
+
 async function retryWithBackoff(fn, maxRetries = 3, initialDelay = 1000) {
   for (let i = 0; i < maxRetries; i++) {
     try {
       return await fn();
     } catch (error) {
-      // Check if it's a 503 error (service overloaded)
+      
       if (error.message?.includes('503') || error.message?.includes('overloaded')) {
-        if (i === maxRetries - 1) throw error; // Last attempt, throw the error
+        if (i === maxRetries - 1) throw error; 
         
-        const delay = initialDelay * Math.pow(2, i); // Exponential backoff
+        const delay = initialDelay * Math.pow(2, i); 
                 console.log(`Gemini API overloaded, retrying in ${delay}ms... (attempt ${i + 2}/${maxRetries})`);
         await new Promise(resolve => setTimeout(resolve, delay));
       } else {
-        // For other errors, throw immediately
+        
         throw error;
       }
     }
@@ -120,12 +120,12 @@ export async function POST(request) {
   console.log('=== POST request received ===');
   
   try {
-    // Set proper headers
+    
     const headers = {
       'Content-Type': 'application/json',
     };
 
-    // Check if Gemini is configured
+    
     if (!genAI) {
       return NextResponse.json({
         success: false,
@@ -133,7 +133,7 @@ export async function POST(request) {
       }, { headers });
     }
 
-    // Get form data
+    
     let formData;
     try {
       formData = await request.formData();
@@ -157,13 +157,13 @@ export async function POST(request) {
     console.log(`File received: ${file.name} (${file.size} bytes, ${file.type})`);
 
     try {
-      // Initialize Gemini model
+      
       const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
       
       let result;
       let documentText = '';
       
-      // Handle DOCX files
+      
       if (file.type === 'application/vnd.openxmlformats-officedocument.wordprocessingml.document' || 
           file.name.toLowerCase().endsWith('.docx')) {
         
@@ -272,7 +272,7 @@ IMPORTANT:
 4. Include realistic dates and obligations
 5. Fill all arrays with relevant data, don't leave them empty`;
 
-          // Use retry logic for Gemini API call
+          
           result = await retryWithBackoff(() => model.generateContent(prompt));
           
         } else {
@@ -285,7 +285,7 @@ IMPORTANT:
         }
         
       } else {
-        // For other files, send directly to Gemini
+        
         console.log('Processing file with Gemini...');
         
         const bytes = await file.arrayBuffer();
@@ -388,17 +388,17 @@ IMPORTANT:
 4. Include realistic dates and obligations
 5. Fill all arrays with relevant data, don't leave them empty`;
 
-        // Use retry logic for Gemini API call
+        
         result = await retryWithBackoff(() => model.generateContent([prompt, filePart]));
       }
       
       const aiResponse = result.response.text();
       console.log('Gemini response received');
 
-      // Parse the JSON response
+      
       let analysisData;
       try {
-        // Clean the response to extract JSON
+        
         const jsonMatch = aiResponse.match(/\{[\s\S]*\}/);
         if (jsonMatch) {
           analysisData = JSON.parse(jsonMatch[0]);
@@ -409,7 +409,7 @@ IMPORTANT:
         console.error('JSON parsing error:', parseError);
         console.log('AI Response:', aiResponse.substring(0, 500) + '...');
         
-        // Fallback parsing for the old format
+        
         let summary = "Document analysis completed.";
         let riskScore = "Medium";
         let riskyClauses = [];
@@ -462,7 +462,7 @@ IMPORTANT:
           }
         }
 
-        // Create a structured response from fallback parsing
+        
         analysisData = {
           summary: summary,
           overallRiskScore: riskScore === 'High' ? 75 : riskScore === 'Medium' ? 50 : 25,
@@ -502,7 +502,7 @@ IMPORTANT:
         };
       }
 
-      // Ensure all required fields exist with defaults
+      
       analysisData = {
         summary: analysisData.summary || "Document analysis completed.",
         overallRiskScore: analysisData.overallRiskScore || 50,
@@ -537,29 +537,29 @@ IMPORTANT:
         }
       };
 
-      // Add IDs to clauses if missing
+      
       analysisData.flaggedClauses = analysisData.flaggedClauses.map((clause, index) => ({
         ...clause,
         id: clause.id || index + 1
       }));
 
-      // Calculate document statistics
+      
       const wordCount = documentText ? documentText.split(/\s+/).length : 1000;
-      const readingTime = Math.ceil(wordCount / 200); // Average reading speed
+      const readingTime = Math.ceil(wordCount / 200); 
 
-      // Add additional metadata
-      // Add additional metadata
+      
+      
 analysisData.metadata = {
   fileName: file.name,
   fileSize: file.size,
   analyzedAt: new Date().toISOString(),
   wordCount: wordCount,
   estimatedReadTime: `${readingTime} min`,
-  pageCount: Math.ceil(wordCount / 500), // Rough estimate
-  documentText: documentText ? documentText.substring(0, 10000) : '' // Store first 10k chars for chatbot
+  pageCount: Math.ceil(wordCount / 500), 
+  documentText: documentText ? documentText.substring(0, 10000) : '' 
 };
 
-      // Return the comprehensive analysis
+      
       return NextResponse.json({
         success: true,
         analysis: analysisData,
@@ -575,7 +575,7 @@ analysisData.metadata = {
     } catch (aiError) {
       console.error('Gemini API error:', aiError);
       
-      // Handle specific error cases
+      
       if (aiError.message?.includes('503') || aiError.message?.includes('overloaded')) {
         return NextResponse.json({
           success: false,

@@ -23,7 +23,7 @@ export default function RiskRadarChart({ riskCategories }) {
   const radius = 100;
   const angleStep = (2 * Math.PI) / categories.length;
 
-  // Calculate points for the radar shape
+  
   const points = categories.map((cat, index) => {
     const angle = index * angleStep - Math.PI / 2;
     const value = cat.value / 100;

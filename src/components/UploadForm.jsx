@@ -30,7 +30,7 @@ export default function UploadForm({ onDocumentUpload, loading, uploadProgress, 
     
     setError(null);
     setFiles([file]);
-    // Auto-upload when file is selected
+    
     onDocumentUpload(file);
   };
 
@@ -53,7 +53,7 @@ export default function UploadForm({ onDocumentUpload, loading, uploadProgress, 
       className="text-center"
     >
       {uploadProgress < 100 ? (
-        // Enhanced Uploading Animation
+        
         <div>
           <motion.div className="relative w-40 h-40 mx-auto mb-6">
             {/* Animated gradient background */}
@@ -134,7 +134,7 @@ export default function UploadForm({ onDocumentUpload, loading, uploadProgress, 
           </motion.p>
         </div>
       ) : (
-        // Enhanced Analyzing Animation
+        
         <div>
           <motion.div className="relative w-40 h-40 mx-auto mb-6">
             {/* Multiple rotating rings with gradient */}

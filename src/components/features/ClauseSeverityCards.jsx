@@ -52,7 +52,7 @@ export default function ClauseSeverityCards({ clauses = [] }) {
     }
   };
 
-  // Group clauses by severity
+  
   const criticalClauses = clauses.filter(c => c.severity === 'critical');
   const warningClauses = clauses.filter(c => c.severity === 'warning');
   const safeClauses = clauses.filter(c => c.severity === 'safe');

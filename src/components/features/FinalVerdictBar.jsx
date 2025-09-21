@@ -10,7 +10,7 @@ export default function FinalVerdictBar({ finalVerdict, flaggedClauses = [] }) {
     setIsVisible(true);
   }, []);
 
-  // Calculate segments based on clause severity
+  
   const criticalCount = flaggedClauses.filter(c => c.severity === 'critical').length;
   const warningCount = flaggedClauses.filter(c => c.severity === 'warning').length;
   const safeCount = flaggedClauses.filter(c => c.severity === 'safe').length;
