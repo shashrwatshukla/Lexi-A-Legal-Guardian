@@ -1,4 +1,3 @@
-
 import { NextResponse } from 'next/server';
 import { GoogleGenerativeAI } from '@google/generative-ai';
 
@@ -106,7 +105,7 @@ async function retryWithBackoff(fn, maxRetries = 3, initialDelay = 1000) {
         if (i === maxRetries - 1) throw error; 
         
         const delay = initialDelay * Math.pow(2, i); 
-                console.log(`Gemini API overloaded, retrying in ${delay}ms... (attempt ${i + 2}/${maxRetries})`);
+        console.log(`Gemini API overloaded, retrying in ${delay}ms... (attempt ${i + 2}/${maxRetries})`);
         await new Promise(resolve => setTimeout(resolve, delay));
       } else {
         
@@ -157,8 +156,7 @@ export async function POST(request) {
     console.log(`File received: ${file.name} (${file.size} bytes, ${file.type})`);
 
     try {
-      
-      const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
+      const model = genAI.getGenerativeModel({ model: "gemini-2.0-flash" });
       
       let result;
       let documentText = '';
@@ -422,7 +420,7 @@ IMPORTANT:
           
           if (line.startsWith('SUMMARY:')) {
             summary = line.substring(8).trim();
-            while (i + 1 < lines.length && !lines[i + 1].trim().includes(':')) {
+                        while (i + 1 < lines.length && !lines[i + 1].trim().includes(':')) {
               i++;
               summary += ' ' + lines[i].trim();
             }
@@ -521,7 +519,7 @@ IMPORTANT:
           reputational: 50,
           compliance: 50
         },
-                positiveProvisions: analysisData.positiveProvisions || [],
+        positiveProvisions: analysisData.positiveProvisions || [],
         missingClauses: analysisData.missingClauses || [],
         industryComparison: analysisData.industryComparison || {
           contractLength: 'Average',
@@ -548,16 +546,15 @@ IMPORTANT:
       const readingTime = Math.ceil(wordCount / 200); 
 
       
-      
-analysisData.metadata = {
-  fileName: file.name,
-  fileSize: file.size,
-  analyzedAt: new Date().toISOString(),
-  wordCount: wordCount,
-  estimatedReadTime: `${readingTime} min`,
-  pageCount: Math.ceil(wordCount / 500), 
-  documentText: documentText ? documentText.substring(0, 10000) : '' 
-};
+      analysisData.metadata = {
+        fileName: file.name,
+        fileSize: file.size,
+        analyzedAt: new Date().toISOString(),
+        wordCount: wordCount,
+        estimatedReadTime: `${readingTime} min`,
+        pageCount: Math.ceil(wordCount / 500), 
+        documentText: documentText ? documentText.substring(0, 10000) : '' 
+      };
 
       
       return NextResponse.json({
@@ -576,7 +573,13 @@ analysisData.metadata = {
       console.error('Gemini API error:', aiError);
       
       
-      if (aiError.message?.includes('503') || aiError.message?.includes('overloaded')) {
+      if (aiError.message?.includes('404') || aiError.message?.includes('not found')) {
+        return NextResponse.json({
+          success: false,
+          error: 'The AI model is temporarily unavailable. Please try again later or contact support if the issue persists.',
+          retryable: true
+        }, { headers });
+      } else if (aiError.message?.includes('503') || aiError.message?.includes('overloaded')) {
         return NextResponse.json({
           success: false,
           error: 'The AI service is currently experiencing high demand. Please try again in a few moments.',
