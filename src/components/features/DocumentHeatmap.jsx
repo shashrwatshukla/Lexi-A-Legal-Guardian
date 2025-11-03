@@ -82,17 +82,17 @@ export default function DocumentHeatmap({ clauses = [], totalPages = 10 }) {
     : 0;
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-4 sm:space-y-6 w-full overflow-x-hidden">
       {/* Enhanced Header */}
-      <div className="space-y-4">
-        <div className="flex items-center justify-between">
-          <div className="flex items-center gap-4">
+      <div className="space-y-3 sm:space-y-4">
+        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+          <div className="flex items-center gap-3 sm:gap-4">
             <motion.div
-              className="relative"
+              className="relative flex-shrink-0"
               animate={{ rotate: [0, 10, -10, 0] }}
               transition={{ duration: 3, repeat: Infinity }}
             >
-              <span className="text-4xl">🗺️</span>
+              <span className="text-3xl sm:text-4xl">🗺️</span>
               <motion.div
                 className="absolute inset-0 bg-purple-500/20 rounded-full blur-xl"
                 animate={{ scale: [1, 1.3, 1], opacity: [0.5, 0.8, 0.5] }}
@@ -100,18 +100,18 @@ export default function DocumentHeatmap({ clauses = [], totalPages = 10 }) {
               />
             </motion.div>
             <div>
-              <h4 className="text-2xl font-bold text-white">Interactive Document Risk Map</h4>
-              <p className="text-sm text-gray-400">Navigate through your contract's risk landscape</p>
+              <h4 className="text-xl sm:text-2xl font-bold text-white">Interactive Document Risk Map</h4>
+              <p className="text-xs sm:text-sm text-gray-400">Navigate through your contract's risk landscape</p>
             </div>
           </div>
 
           {/* View Toggle */}
-          <div className="flex items-center gap-2 bg-gray-800/50 rounded-xl p-1 border border-gray-700/50">
+          <div className="flex items-center gap-2 bg-gray-800/50 rounded-xl p-1 border border-gray-700/50 w-full sm:w-auto">
             <motion.button
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
               onClick={() => setView('heatmap')}
-              className={`px-5 py-2.5 rounded-lg text-sm font-semibold transition-all duration-300 ${
+              className={`flex-1 sm:flex-none px-4 sm:px-5 py-2 sm:py-2.5 rounded-lg text-xs sm:text-sm font-semibold transition-all duration-300 ${
                 view === 'heatmap' 
                   ? 'bg-gradient-to-r from-purple-600 to-pink-600 text-white shadow-lg' 
                   : 'text-gray-400 hover:text-white'
@@ -123,7 +123,7 @@ export default function DocumentHeatmap({ clauses = [], totalPages = 10 }) {
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
               onClick={() => setView('list')}
-              className={`px-5 py-2.5 rounded-lg text-sm font-semibold transition-all duration-300 ${
+              className={`flex-1 sm:flex-none px-4 sm:px-5 py-2 sm:py-2.5 rounded-lg text-xs sm:text-sm font-semibold transition-all duration-300 ${
                 view === 'list' 
                   ? 'bg-gradient-to-r from-purple-600 to-pink-600 text-white shadow-lg' 
                   : 'text-gray-400 hover:text-white'
@@ -142,25 +142,25 @@ export default function DocumentHeatmap({ clauses = [], totalPages = 10 }) {
             riskScore > 70 ? 'from-red-900/40 to-orange-900/40 border-red-500/50' :
             riskScore > 40 ? 'from-yellow-900/40 to-orange-900/40 border-yellow-500/50' :
             'from-green-900/40 to-emerald-900/40 border-green-500/50'
-          } rounded-2xl p-5 border backdrop-blur-sm`}
+          } rounded-xl sm:rounded-2xl p-4 sm:p-5 border backdrop-blur-sm`}
         >
-          <div className="flex items-center justify-between">
-            <div className="flex items-center gap-4">
-              <div className="text-5xl">
+          <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+            <div className="flex items-center gap-3 sm:gap-4">
+              <div className="text-4xl sm:text-5xl flex-shrink-0">
                 {riskScore > 70 ? '🔴' : riskScore > 40 ? '🟡' : '🟢'}
               </div>
               <div>
-                <h5 className="text-lg font-bold text-white mb-1">Overall Document Risk Score</h5>
-                <p className="text-sm text-gray-300">
+                <h5 className="text-base sm:text-lg font-bold text-white mb-1">Overall Document Risk Score</h5>
+                <p className="text-xs sm:text-sm text-gray-300">
                   {riskScore > 70 ? 'High risk detected - Legal review strongly recommended' :
                    riskScore > 40 ? 'Moderate risk - Careful review suggested' :
                    'Low risk - Document appears favorable'}
                 </p>
               </div>
             </div>
-            <div className="text-right">
+            <div className="text-center sm:text-right">
               <motion.div 
-                className="text-5xl font-black text-white"
+                className="text-4xl sm:text-5xl font-black text-white"
                 animate={{ scale: [1, 1.1, 1] }}
                 transition={{ duration: 2, repeat: Infinity }}
               >
@@ -184,15 +184,16 @@ export default function DocumentHeatmap({ clauses = [], totalPages = 10 }) {
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
               onClick={() => setSelectedSeverity(filter.key)}
-              className={`px-4 py-2 rounded-xl text-sm font-semibold transition-all duration-300 ${
+              className={`flex-1 min-w-[calc(50%-0.25rem)] sm:flex-none px-3 sm:px-4 py-2 rounded-lg sm:rounded-xl text-xs sm:text-sm font-semibold transition-all duration-300 ${
                 selectedSeverity === filter.key
                   ? 'bg-purple-600 text-white shadow-lg border-2 border-purple-400'
                   : 'bg-gray-800/50 text-gray-400 border border-gray-700/50 hover:border-purple-500/50'
               }`}
             >
-              <span className="mr-2">{filter.icon}</span>
-              {filter.label}
-              <span className="ml-2 bg-white/20 px-2 py-0.5 rounded-full text-xs">
+              <span className="mr-1 sm:mr-2">{filter.icon}</span>
+              <span className="hidden sm:inline">{filter.label}</span>
+              <span className="sm:hidden">{filter.label.split(' ')[0]}</span>
+              <span className="ml-1 sm:ml-2 bg-white/20 px-1.5 sm:px-2 py-0.5 rounded-full text-[10px] sm:text-xs">
                 {filter.count}
               </span>
             </motion.button>
@@ -208,267 +209,264 @@ export default function DocumentHeatmap({ clauses = [], totalPages = 10 }) {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -20 }}
             transition={{ duration: 0.3 }}
-            className="space-y-6"
+            className="space-y-4 sm:space-y-6"
           >
-           {/* Enhanced Document Visualization - Better Bar Chart */}
-<div className="relative">
-  {/* Main document visualization */}
-  <div className="bg-gradient-to-br from-gray-900 via-purple-900/20 to-gray-900 rounded-2xl p-6 border-2 border-purple-500/30 shadow-2xl">
-    
-    {/* Header with document info */}
-    <div className="flex items-center justify-between mb-4">
-      <div className="flex items-center gap-3">
-        <div className="w-12 h-12 bg-purple-600/20 rounded-xl flex items-center justify-center">
-          <span className="text-3xl">📊</span>
-        </div>
-        <div>
-          <h5 className="text-lg font-bold text-white">Document Structure Analysis</h5>
-          <p className="text-xs text-gray-400">Visual breakdown of your contract</p>
-        </div>
-      </div>
-      <div className="text-right">
-        <p className="text-2xl font-black text-white">{totalPages}</p>
-        <p className="text-xs text-gray-400">Total Pages</p>
-      </div>
-    </div>
-
-  
-  
-    {/* Category breakdown bars */}
-    <div className="grid grid-cols-3 gap-3 mb-4">
-      {[
-        { 
-          severity: 'critical', 
-          label: 'Critical Issues',
-          count: clausesBySeverity.critical.length,
-          icon: '🚨',
-          color: 'bg-red-500'
-        },
-        { 
-          severity: 'warning', 
-          label: 'Warnings',
-          count: clausesBySeverity.warning.length,
-          icon: '⚠️',
-          color: 'bg-yellow-500'
-        },
-        { 
-          severity: 'safe', 
-          label: 'Safe Clauses',
-          count: clausesBySeverity.safe.length,
-          icon: '✅',
-          color: 'bg-green-500'
-        }
-      ].map((item, index) => (
-        <motion.div
-          key={item.severity}
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.8 + index * 0.1 }}
-          className="bg-gray-800/50 rounded-xl p-3 border border-gray-700/50 hover:border-purple-500/50 transition-all"
-        >
-          <div className="flex items-center gap-2 mb-2">
-            <span className="text-2xl">{item.icon}</span>
-            <span className="text-xs font-bold text-gray-300">{item.label}</span>
-          </div>
-          
-          <div className="flex items-end gap-2 mb-2">
-            <span className="text-3xl font-black text-white">{item.count}</span>
-            <span className="text-xs text-gray-500 mb-1">clauses</span>
-          </div>
-
-          {/* Progress bar */}
-          <div className="h-2 bg-gray-700 rounded-full overflow-hidden">
-            <motion.div
-              initial={{ width: 0 }}
-              animate={{ width: `${clauses.length > 0 ? (item.count / clauses.length) * 100 : 0}%` }}
-              transition={{ delay: 1 + index * 0.1, duration: 0.8 }}
-              className={`h-full ${item.color}`}
-            />
-          </div>
-          
-          <p className="text-xs text-gray-500 mt-1">
-            {clauses.length > 0 ? Math.round((item.count / clauses.length) * 100) : 0}% of total
-          </p>
-        </motion.div>
-      ))}
-    </div>
-
-    {/* Risk Heat Zones - Shows where risks are concentrated */}
-<div className="bg-gradient-to-br from-gray-800/50 to-gray-900/50 rounded-xl p-4 border border-purple-500/20">
-  <div className="flex items-center gap-2 mb-4">
-    <span className="text-2xl">🔥</span>
-    <h6 className="text-sm font-bold text-white">Risk Heat Zones</h6>
-    <span className="ml-auto text-xs text-gray-500">Where to focus your attention</span>
-  </div>
-
-  <div className="grid grid-cols-3 gap-3">
-    {[
-      { 
-        zone: 'Beginning',
-        pages: `1-${Math.floor(totalPages/3)}`,
-        icon: '📖'
-      },
-      { 
-        zone: 'Middle',
-        pages: `${Math.floor(totalPages/3)+1}-${Math.floor(totalPages*2/3)}`,
-        icon: '📄'
-      },
-      { 
-        zone: 'End',
-        pages: `${Math.floor(totalPages*2/3)+1}-${totalPages}`,
-        icon: '📑'
-      }
-    ].map((section, idx) => {
-      
-      // Calculate clauses in this section
-      const sectionClauses = clauses.filter(c => {
-        const match = c.location?.match(/page (\d+)/i);
-        if (!match) return false;
-        const page = parseInt(match[1]);
-        
-        if (idx === 0) return page <= Math.floor(totalPages/3);
-        if (idx === 1) return page > Math.floor(totalPages/3) && page <= Math.floor(totalPages*2/3);
-        return page > Math.floor(totalPages*2/3);
-      });
-
-      const criticalCount = sectionClauses.filter(c => c.severity === 'critical').length;
-      const warningCount = sectionClauses.filter(c => c.severity === 'warning').length;
-      const safeCount = sectionClauses.filter(c => c.severity === 'safe').length;
-
-      // Determine heat level
-      const heatLevel = criticalCount > 0 ? 'high' : warningCount > 1 ? 'medium' : 'low';
-      const heatConfig = {
-        high: { bg: 'from-red-900/40 to-orange-900/40', border: 'border-red-500/50', text: 'text-red-400', icon: '🔴' },
-        medium: { bg: 'from-yellow-900/40 to-orange-900/40', border: 'border-yellow-500/50', text: 'text-yellow-400', icon: '🟡' },
-        low: { bg: 'from-green-900/40 to-emerald-900/40', border: 'border-green-500/50', text: 'text-green-400', icon: '🟢' }
-      }[heatLevel];
-
-      return (
-        <motion.div
-          key={idx}
-          initial={{ opacity: 0, scale: 0.9 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ delay: 1.2 + idx * 0.1 }}
-          whileHover={{ scale: 1.05 }}
-          className={`bg-gradient-to-br ${heatConfig.bg} rounded-xl p-4 border-2 ${heatConfig.border} cursor-pointer`}
-        >
-          {/* Header */}
-          <div className="flex items-center justify-between mb-3">
-            <div className="flex items-center gap-2">
-              <span className="text-2xl">{section.icon}</span>
-              <div>
-                <p className="text-sm font-bold text-white">{section.zone}</p>
-                <p className="text-xs text-gray-400">Pages {section.pages}</p>
-              </div>
-            </div>
-            <span className="text-3xl">{heatConfig.icon}</span>
-          </div>
-
-          {/* Stats */}
-          <div className="space-y-2">
-            <div className="flex items-center justify-between">
-              <span className="text-xs text-gray-400">Total Clauses:</span>
-              <span className="text-lg font-bold text-white">{sectionClauses.length}</span>
-            </div>
-
-            {/* Mini breakdown */}
-            <div className="grid grid-cols-3 gap-1 text-center">
-              <div className="bg-red-500/20 rounded p-1">
-                <p className="text-xs font-bold text-red-400">{criticalCount}</p>
-                <p className="text-[8px] text-gray-500">Critical</p>
-              </div>
-              <div className="bg-yellow-500/20 rounded p-1">
-                <p className="text-xs font-bold text-yellow-400">{warningCount}</p>
-                <p className="text-[8px] text-gray-500">Warning</p>
-              </div>
-              <div className="bg-green-500/20 rounded p-1">
-                <p className="text-xs font-bold text-green-400">{safeCount}</p>
-                <p className="text-[8px] text-gray-500">Safe</p>
-              </div>
-            </div>
-
-            {/* Status message */}
-            <div className={`mt-2 p-2 bg-black/30 rounded text-center`}>
-              <p className={`text-xs font-semibold ${heatConfig.text}`}>
-                {heatLevel === 'high' ? '⚠️ High Priority Review' : 
-                 heatLevel === 'medium' ? '👀 Review Recommended' : 
-                 '✓ Looks Good'}
-              </p>
-            </div>
-          </div>
-        </motion.div>
-      );
-    })}
-  </div>
-
-  {/* Overall summary */}
-  <motion.div
-    initial={{ opacity: 0 }}
-    animate={{ opacity: 1 }}
-    transition={{ delay: 1.5 }}
-    className="mt-4 p-3 bg-purple-900/20 rounded-lg border border-purple-500/30"
-  >
-    <div className="flex items-center gap-2 text-xs text-gray-300">
-      <span className="text-lg">💡</span>
-      <p>
-        <span className="font-bold text-white">Focus Area:</span> {' '}
-        {clausesBySeverity.critical.length > 0 
-          ? 'Review critical clauses first, especially in highlighted zones'
-          : 'No critical issues detected. Review warnings in each section'}
-      </p>
-    </div>
-  </motion.div>
-</div>
-
-    {/* Quick stats footer */}
-    <div className="grid grid-cols-4 gap-2 mt-4">
-      <div className="text-center p-2 bg-gray-800/30 rounded-lg">
-        <p className="text-2xl font-black text-white">{clauses.length}</p>
-        <p className="text-[10px] text-gray-400">Total Clauses</p>
-      </div>
-      <div className="text-center p-2 bg-gray-800/30 rounded-lg">
-        <p className="text-2xl font-black text-purple-400">{(clauses.length / totalPages).toFixed(1)}</p>
-        <p className="text-[10px] text-gray-400">Per Page</p>
-      </div>
-      <div className="text-center p-2 bg-gray-800/30 rounded-lg">
-        <p className="text-2xl font-black text-red-400">{clausesBySeverity.critical.length}</p>
-        <p className="text-[10px] text-gray-400">Critical</p>
-      </div>
-      <div className="text-center p-2 bg-gray-800/30 rounded-lg">
-        <p className="text-2xl font-black text-green-400">{clausesBySeverity.safe.length}</p>
-        <p className="text-[10px] text-gray-400">Safe</p>
-      </div>
-    </div>
-  </div>
-</div>
-
-              {/* Enhanced page indicators */}
-              <div className="flex justify-between mt-4 px-2">
-                <div className="flex items-center gap-2">
-                  <motion.div
-                    animate={{ scale: [1, 1.2, 1] }}
-                    transition={{ duration: 2, repeat: Infinity }}
-                    className="w-3 h-3 bg-gradient-to-r from-purple-500 to-pink-500 rounded-full shadow-lg"
-                  />
-                  <span className="text-sm font-semibold text-gray-300">Page 1</span>
-                  <span className="text-xs text-gray-500">(Document Start)</span>
-                </div>
+            {/* Enhanced Document Visualization */}
+            <div className="relative w-full">
+              {/* Main document visualization */}
+              <div className="bg-gradient-to-br from-gray-900 via-purple-900/20 to-gray-900 rounded-xl sm:rounded-2xl p-4 sm:p-6 border-2 border-purple-500/30 shadow-2xl">
                 
-                <div className="text-center">
-                  <span className="text-xs font-bold text-purple-400">
-                    {filteredClauses.length} clauses mapped
-                  </span>                </div>
+                {/* Header with document info */}
+                <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 sm:gap-0 mb-4">
+                  <div className="flex items-center gap-2 sm:gap-3">
+                    <div className="w-10 h-10 sm:w-12 sm:h-12 bg-purple-600/20 rounded-lg sm:rounded-xl flex items-center justify-center flex-shrink-0">
+                      <span className="text-2xl sm:text-3xl">📊</span>
+                    </div>
+                    <div>
+                      <h5 className="text-base sm:text-lg font-bold text-white">Document Structure Analysis</h5>
+                      <p className="text-[10px] sm:text-xs text-gray-400">Visual breakdown of your contract</p>
+                    </div>
+                  </div>
+                  <div className="text-left sm:text-right">
+                    <p className="text-xl sm:text-2xl font-black text-white">{totalPages}</p>
+                    <p className="text-[10px] sm:text-xs text-gray-400">Total Pages</p>
+                  </div>
+                </div>
 
-                <div className="flex items-center gap-2">
-                  <span className="text-xs text-gray-500">(Document End)</span>
-                  <span className="text-sm font-semibold text-gray-300">Page {totalPages}</span>
+                {/* Category breakdown bars */}
+                <div className="grid grid-cols-1 sm:grid-cols-3 gap-2 sm:gap-3 mb-4">
+                  {[
+                    { 
+                      severity: 'critical', 
+                      label: 'Critical Issues',
+                      count: clausesBySeverity.critical.length,
+                      icon: '🚨',
+                      color: 'bg-red-500'
+                    },
+                    { 
+                      severity: 'warning', 
+                      label: 'Warnings',
+                      count: clausesBySeverity.warning.length,
+                      icon: '⚠️',
+                      color: 'bg-yellow-500'
+                    },
+                    { 
+                      severity: 'safe', 
+                      label: 'Safe Clauses',
+                      count: clausesBySeverity.safe.length,
+                      icon: '✅',
+                      color: 'bg-green-500'
+                    }
+                  ].map((item, index) => (
+                    <motion.div
+                      key={item.severity}
+                      initial={{ opacity: 0, y: 20 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ delay: 0.8 + index * 0.1 }}
+                      className="bg-gray-800/50 rounded-lg sm:rounded-xl p-3 border border-gray-700/50 hover:border-purple-500/50 transition-all"
+                    >
+                      <div className="flex items-center gap-2 mb-2">
+                        <span className="text-xl sm:text-2xl">{item.icon}</span>
+                        <span className="text-[10px] sm:text-xs font-bold text-gray-300">{item.label}</span>
+                      </div>
+                      
+                      <div className="flex items-end gap-2 mb-2">
+                        <span className="text-2xl sm:text-3xl font-black text-white">{item.count}</span>
+                        <span className="text-[10px] sm:text-xs text-gray-500 mb-1">clauses</span>
+                      </div>
+
+                      {/* Progress bar */}
+                      <div className="h-2 bg-gray-700 rounded-full overflow-hidden">
+                        <motion.div
+                          initial={{ width: 0 }}
+                          animate={{ width: `${clauses.length > 0 ? (item.count / clauses.length) * 100 : 0}%` }}
+                          transition={{ delay: 1 + index * 0.1, duration: 0.8 }}
+                          className={`h-full ${item.color}`}
+                        />
+                      </div>
+                      
+                      <p className="text-[10px] sm:text-xs text-gray-500 mt-1">
+                        {clauses.length > 0 ? Math.round((item.count / clauses.length) * 100) : 0}% of total
+                      </p>
+                    </motion.div>
+                  ))}
+                </div>
+
+                {/* Risk Heat Zones */}
+                <div className="bg-gradient-to-br from-gray-800/50 to-gray-900/50 rounded-lg sm:rounded-xl p-3 sm:p-4 border border-purple-500/20">
+                  <div className="flex items-center gap-2 mb-3 sm:mb-4">
+                    <span className="text-xl sm:text-2xl">🔥</span>
+                    <h6 className="text-xs sm:text-sm font-bold text-white">Risk Heat Zones</h6>
+                    <span className="ml-auto text-[10px] sm:text-xs text-gray-500 hidden sm:inline">Where to focus your attention</span>
+                  </div>
+
+                  <div className="grid grid-cols-1 sm:grid-cols-3 gap-2 sm:gap-3">
+                    {[
+                      { 
+                        zone: 'Beginning',
+                        pages: `1-${Math.floor(totalPages/3)}`,
+                        icon: '📖'
+                      },
+                      { 
+                        zone: 'Middle',
+                        pages: `${Math.floor(totalPages/3)+1}-${Math.floor(totalPages*2/3)}`,
+                        icon: '📄'
+                      },
+                      { 
+                        zone: 'End',
+                        pages: `${Math.floor(totalPages*2/3)+1}-${totalPages}`,
+                        icon: '📑'
+                      }
+                    ].map((section, idx) => {
+                      
+                      const sectionClauses = clauses.filter(c => {
+                        const match = c.location?.match(/page (\d+)/i);
+                        if (!match) return false;
+                        const page = parseInt(match[1]);
+                        
+                        if (idx === 0) return page <= Math.floor(totalPages/3);
+                        if (idx === 1) return page > Math.floor(totalPages/3) && page <= Math.floor(totalPages*2/3);
+                        return page > Math.floor(totalPages*2/3);
+                      });
+
+                      const criticalCount = sectionClauses.filter(c => c.severity === 'critical').length;
+                      const warningCount = sectionClauses.filter(c => c.severity === 'warning').length;
+                      const safeCount = sectionClauses.filter(c => c.severity === 'safe').length;
+
+                      const heatLevel = criticalCount > 0 ? 'high' : warningCount > 1 ? 'medium' : 'low';
+                      const heatConfig = {
+                        high: { bg: 'from-red-900/40 to-orange-900/40', border: 'border-red-500/50', text: 'text-red-400', icon: '🔴' },
+                        medium: { bg: 'from-yellow-900/40 to-orange-900/40', border: 'border-yellow-500/50', text: 'text-yellow-400', icon: '🟡' },
+                        low: { bg: 'from-green-900/40 to-emerald-900/40', border: 'border-green-500/50', text: 'text-green-400', icon: '🟢' }
+                      }[heatLevel];
+
+                      return (
+                        <motion.div
+                          key={idx}
+                          initial={{ opacity: 0, scale: 0.9 }}
+                          animate={{ opacity: 1, scale: 1 }}
+                          transition={{ delay: 1.2 + idx * 0.1 }}
+                          whileHover={{ scale: 1.05 }}
+                          className={`bg-gradient-to-br ${heatConfig.bg} rounded-lg sm:rounded-xl p-3 sm:p-4 border-2 ${heatConfig.border} cursor-pointer`}
+                        >
+                          {/* Header */}
+                          <div className="flex items-center justify-between mb-2 sm:mb-3">
+                            <div className="flex items-center gap-2">
+                              <span className="text-xl sm:text-2xl">{section.icon}</span>
+                              <div>
+                                <p className="text-xs sm:text-sm font-bold text-white">{section.zone}</p>
+                                <p className="text-[10px] sm:text-xs text-gray-400">Pages {section.pages}</p>
+                              </div>
+                            </div>
+                            <span className="text-2xl sm:text-3xl">{heatConfig.icon}</span>
+                          </div>
+
+                          {/* Stats */}
+                          <div className="space-y-2">
+                            <div className="flex items-center justify-between">
+                              <span className="text-[10px] sm:text-xs text-gray-400">Total Clauses:</span>
+                              <span className="text-base sm:text-lg font-bold text-white">{sectionClauses.length}</span>
+                            </div>
+
+                            {/* Mini breakdown */}
+                            <div className="grid grid-cols-3 gap-1 text-center">
+                              <div className="bg-red-500/20 rounded p-1">
+                                <p className="text-[10px] sm:text-xs font-bold text-red-400">{criticalCount}</p>
+                                <p className="text-[8px] sm:text-[8px] text-gray-500">Critical</p>
+                              </div>
+                              <div className="bg-yellow-500/20 rounded p-1">
+                                <p className="text-[10px] sm:text-xs font-bold text-yellow-400">{warningCount}</p>
+                                <p className="text-[8px] sm:text-[8px] text-gray-500">Warning</p>
+                              </div>
+                              <div className="bg-green-500/20 rounded p-1">
+                                <p className="text-[10px] sm:text-xs font-bold text-green-400">{safeCount}</p>
+                                <p className="text-[8px] sm:text-[8px] text-gray-500">Safe</p>
+                              </div>
+                            </div>
+
+                            {/* Status message */}
+                            <div className={`mt-2 p-2 bg-black/30 rounded text-center`}>
+                              <p className={`text-[10px] sm:text-xs font-semibold ${heatConfig.text}`}>
+                                {heatLevel === 'high' ? '⚠️ High Priority Review' : 
+                                 heatLevel === 'medium' ? '👀 Review Recommended' : 
+                                 '✓ Looks Good'}
+                              </p>
+                            </div>
+                          </div>
+                        </motion.div>
+                      );
+                    })}
+                  </div>
+
+                  {/* Overall summary */}
                   <motion.div
-                    animate={{ scale: [1, 1.2, 1] }}
-                    transition={{ duration: 2, repeat: Infinity, delay: 1 }}
-                    className="w-3 h-3 bg-gradient-to-r from-pink-500 to-purple-500 rounded-full shadow-lg"
-                  />
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    transition={{ delay: 1.5 }}
+                    className="mt-3 sm:mt-4 p-2 sm:p-3 bg-purple-900/20 rounded-lg border border-purple-500/30"
+                  >
+                    <div className="flex items-center gap-2 text-[10px] sm:text-xs text-gray-300">
+                      <span className="text-base sm:text-lg flex-shrink-0">💡</span>
+                      <p>
+                        <span className="font-bold text-white">Focus Area:</span> {' '}
+                        {clausesBySeverity.critical.length > 0 
+                          ? 'Review critical clauses first, especially in highlighted zones'
+                          : 'No critical issues detected. Review warnings in each section'}
+                      </p>
+                    </div>
+                  </motion.div>
+                </div>
+
+                {/* Quick stats footer */}
+                <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 mt-4">
+                  <div className="text-center p-2 bg-gray-800/30 rounded-lg">
+                    <p className="text-xl sm:text-2xl font-black text-white">{clauses.length}</p>
+                    <p className="text-[8px] sm:text-[10px] text-gray-400">Total Clauses</p>
+                  </div>
+                  <div className="text-center p-2 bg-gray-800/30 rounded-lg">
+                    <p className="text-xl sm:text-2xl font-black text-purple-400">{(clauses.length / totalPages).toFixed(1)}</p>
+                    <p className="text-[8px] sm:text-[10px] text-gray-400">Per Page</p>
+                  </div>
+                  <div className="text-center p-2 bg-gray-800/30 rounded-lg">
+                    <p className="text-xl sm:text-2xl font-black text-red-400">{clausesBySeverity.critical.length}</p>
+                    <p className="text-[8px] sm:text-[10px] text-gray-400">Critical</p>
+                  </div>
+                  <div className="text-center p-2 bg-gray-800/30 rounded-lg">
+                    <p className="text-xl sm:text-2xl font-black text-green-400">{clausesBySeverity.safe.length}</p>
+                    <p className="text-[8px] sm:text-[10px] text-gray-400">Safe</p>
+                  </div>
                 </div>
               </div>
+            </div>
+
+            {/* Enhanced page indicators */}
+            <div className="flex flex-col sm:flex-row justify-between gap-3 sm:gap-0 mt-4 px-2">
+              <div className="flex items-center gap-2">
+                <motion.div
+                  animate={{ scale: [1, 1.2, 1] }}
+                  transition={{ duration: 2, repeat: Infinity }}
+                  className="w-3 h-3 bg-gradient-to-r from-purple-500 to-pink-500 rounded-full shadow-lg flex-shrink-0"
+                />
+                <span className="text-xs sm:text-sm font-semibold text-gray-300">Page 1</span>
+                <span className="text-[10px] sm:text-xs text-gray-500">(Document Start)</span>
+              </div>
+              
+              <div className="text-center">
+                <span className="text-[10px] sm:text-xs font-bold text-purple-400">
+                  {filteredClauses.length} clauses mapped
+                </span>
+              </div>
+
+              <div className="flex items-center gap-2">
+                <span className="text-[10px] sm:text-xs text-gray-500">(Document End)</span>
+                <span className="text-xs sm:text-sm font-semibold text-gray-300">Page {totalPages}</span>
+                <motion.div
+                  animate={{ scale: [1, 1.2, 1] }}
+                  transition={{ duration: 2, repeat: Infinity, delay: 1 }}
+                  className="w-3 h-3 bg-gradient-to-r from-pink-500 to-purple-500 rounded-full shadow-lg flex-shrink-0"
+                />
+              </div>
+            </div>
 
             {/* Enhanced Tooltip */}
             <AnimatePresence>
@@ -478,39 +476,39 @@ export default function DocumentHeatmap({ clauses = [], totalPages = 10 }) {
                   animate={{ opacity: 1, y: 0, scale: 1 }}
                   exit={{ opacity: 0, y: 20, scale: 0.9 }}
                   transition={{ duration: 0.2 }}
-                  className={`bg-gradient-to-br ${getSeverityConfig(hoveredClause.severity).bgGradient} backdrop-blur-xl border-2 ${getSeverityConfig(hoveredClause.severity).borderColor} rounded-2xl p-6 shadow-2xl`}
+                  className={`bg-gradient-to-br ${getSeverityConfig(hoveredClause.severity).bgGradient} backdrop-blur-xl border-2 ${getSeverityConfig(hoveredClause.severity).borderColor} rounded-xl sm:rounded-2xl p-4 sm:p-6 shadow-2xl`}
                 >
-                  <div className="space-y-4">
+                  <div className="space-y-3 sm:space-y-4">
                     {/* Header */}
-                    <div className="flex items-start gap-4">
+                    <div className="flex items-start gap-3 sm:gap-4">
                       <motion.span 
-                        className="text-5xl"
+                        className="text-3xl sm:text-5xl flex-shrink-0"
                         animate={{ rotate: [0, 10, -10, 0] }}
                         transition={{ duration: 0.5, repeat: Infinity }}
                       >
                         {getSeverityConfig(hoveredClause.severity).icon}
                       </motion.span>
-                      <div className="flex-1">
+                      <div className="flex-1 min-w-0">
                         <div className="flex items-center gap-2 mb-2 flex-wrap">
-                          <span className={`px-3 py-1.5 rounded-full text-xs font-bold ${getSeverityConfig(hoveredClause.severity).color} text-white shadow-lg`}>
+                          <span className={`px-2 sm:px-3 py-1 sm:py-1.5 rounded-full text-[10px] sm:text-xs font-bold ${getSeverityConfig(hoveredClause.severity).color} text-white shadow-lg`}>
                             {getSeverityConfig(hoveredClause.severity).label}
                           </span>
-                          <span className="px-3 py-1.5 rounded-full text-xs font-semibold bg-gray-700/50 text-gray-300 border border-gray-600">
+                          <span className="px-2 sm:px-3 py-1 sm:py-1.5 rounded-full text-[10px] sm:text-xs font-semibold bg-gray-700/50 text-gray-300 border border-gray-600">
                             📍 {hoveredClause.location}
                           </span>
-                          <span className="px-3 py-1.5 rounded-full text-xs font-semibold bg-purple-900/50 text-purple-300 border border-purple-600">
+                          <span className="px-2 sm:px-3 py-1 sm:py-1.5 rounded-full text-[10px] sm:text-xs font-semibold bg-purple-900/50 text-purple-300 border border-purple-600">
                             🔖 {hoveredClause.category || 'General'}
                           </span>
                         </div>
-                        <h5 className="text-xl font-bold text-white mb-2">{hoveredClause.title}</h5>
-                        <p className="text-sm text-gray-300 leading-relaxed">{hoveredClause.description}</p>
+                        <h5 className="text-base sm:text-xl font-bold text-white mb-2">{hoveredClause.title}</h5>
+                        <p className="text-xs sm:text-sm text-gray-300 leading-relaxed">{hoveredClause.description}</p>
                       </div>
                     </div>
 
                     {/* Additional Details */}
-                    <div className="grid md:grid-cols-2 gap-4 pt-4 border-t border-gray-700/50">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4 pt-3 sm:pt-4 border-t border-gray-700/50">
                       <div>
-                        <p className="text-xs font-semibold text-gray-400 mb-2">⚠️ Risk Level</p>
+                        <p className="text-[10px] sm:text-xs font-semibold text-gray-400 mb-2">⚠️ Risk Level</p>
                         <div className="flex items-center gap-2">
                           <div className="flex-1 h-2 bg-gray-700 rounded-full overflow-hidden">
                             <motion.div
@@ -520,15 +518,15 @@ export default function DocumentHeatmap({ clauses = [], totalPages = 10 }) {
                               transition={{ duration: 0.5 }}
                             />
                           </div>
-                          <span className={`text-xs font-bold ${getSeverityConfig(hoveredClause.severity).textColor}`}>
+                          <span className={`text-[10px] sm:text-xs font-bold ${getSeverityConfig(hoveredClause.severity).textColor}`}>
                             {hoveredClause.severity === 'critical' ? 'High' : hoveredClause.severity === 'warning' ? 'Medium' : 'Low'}
                           </span>
                         </div>
                       </div>
 
                       <div>
-                        <p className="text-xs font-semibold text-gray-400 mb-2">💡 Recommendation</p>
-                        <p className="text-xs text-gray-300">
+                        <p className="text-[10px] sm:text-xs font-semibold text-gray-400 mb-2">💡 Recommendation</p>
+                        <p className="text-[10px] sm:text-xs text-gray-300">
                           {hoveredClause.severity === 'critical' 
                             ? 'Seek legal counsel immediately'
                             : hoveredClause.severity === 'warning'
@@ -540,19 +538,19 @@ export default function DocumentHeatmap({ clauses = [], totalPages = 10 }) {
 
                     {/* Impact Assessment */}
                     {hoveredClause.impact && (
-                      <div className="bg-gray-900/50 rounded-xl p-4 border border-gray-700/30">
-                        <p className="text-xs font-semibold text-gray-400 mb-2">📊 Potential Impact</p>
-                        <p className="text-sm text-gray-300">{hoveredClause.impact}</p>
+                      <div className="bg-gray-900/50 rounded-lg sm:rounded-xl p-3 sm:p-4 border border-gray-700/30">
+                        <p className="text-[10px] sm:text-xs font-semibold text-gray-400 mb-2">📊 Potential Impact</p>
+                        <p className="text-xs sm:text-sm text-gray-300">{hoveredClause.impact}</p>
                       </div>
                     )}
 
                     {/* Suggested Actions */}
                     {hoveredClause.suggestions && hoveredClause.suggestions.length > 0 && (
                       <div>
-                        <p className="text-xs font-semibold text-gray-400 mb-2">✅ Suggested Actions</p>
+                        <p className="text-[10px] sm:text-xs font-semibold text-gray-400 mb-2">✅ Suggested Actions</p>
                         <ul className="space-y-1">
                           {hoveredClause.suggestions.map((suggestion, idx) => (
-                            <li key={idx} className="flex items-start gap-2 text-xs text-gray-300">
+                            <li key={idx} className="flex items-start gap-2 text-[10px] sm:text-xs text-gray-300">
                               <span className="text-green-400 mt-0.5">•</span>
                               {suggestion}
                             </li>
@@ -566,7 +564,7 @@ export default function DocumentHeatmap({ clauses = [], totalPages = 10 }) {
             </AnimatePresence>
 
             {/* Enhanced Legend with Details */}
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+            <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-4">
               {[
                 { severity: 'critical', count: clausesBySeverity.critical.length },
                 { severity: 'warning', count: clausesBySeverity.warning.length },
@@ -591,36 +589,36 @@ export default function DocumentHeatmap({ clauses = [], totalPages = 10 }) {
                     animate={{ opacity: 1, scale: 1, y: 0 }}
                     transition={{ delay: 0.8 + index * 0.1 }}
                     whileHover={{ scale: 1.05, y: -5 }}
-                    className={`bg-gradient-to-br ${config.bgGradient} rounded-xl p-4 border-2 ${config.borderColor}/30 hover:${config.borderColor}/60 transition-all duration-300 cursor-pointer`}
+                    className={`bg-gradient-to-br ${config.bgGradient} rounded-lg sm:rounded-xl p-3 sm:p-4 border-2 ${config.borderColor}/30 hover:${config.borderColor}/60 transition-all duration-300 cursor-pointer`}
                   >
-                    <div className="flex items-center justify-between mb-3">
-                      <div className={`w-6 h-6 ${config.color} rounded-full ${config.glow} shadow-lg flex items-center justify-center`}>
+                    <div className="flex items-center justify-between mb-2 sm:mb-3">
+                      <div className={`w-5 h-5 sm:w-6 sm:h-6 ${config.color} rounded-full ${config.glow} shadow-lg flex items-center justify-center`}>
                         <motion.div
                           animate={{ scale: [1, 1.2, 1] }}
                           transition={{ duration: 2, repeat: Infinity, delay: index * 0.3 }}
                         >
-                          <span className="text-xs">✓</span>
+                          <span className="text-[10px] sm:text-xs">✓</span>
                         </motion.div>
                       </div>
-                      <span className="text-3xl">{config.icon}</span>
+                      <span className="text-2xl sm:text-3xl">{config.icon}</span>
                     </div>
                     
                     <div>
-                      <p className="text-xs text-gray-400 mb-1">{config.label}</p>
+                      <p className="text-[10px] sm:text-xs text-gray-400 mb-1">{config.label}</p>
                       <div className="flex items-end gap-2">
                         <motion.p 
-                          className="text-3xl font-black text-white"
+                          className="text-2xl sm:text-3xl font-black text-white"
                           initial={{ scale: 0 }}
                           animate={{ scale: 1 }}
                           transition={{ delay: 1 + index * 0.1, type: "spring" }}
                         >
                           {item.count}
                         </motion.p>
-                        <p className="text-xs text-gray-500 mb-1">
+                        <p className="text-[10px] sm:text-xs text-gray-500 mb-1">
                           ({clauses.length > 0 ? Math.round((item.count / clauses.length) * 100) : 0}%)
                         </p>
                       </div>
-                      <p className="text-xs text-gray-500 mt-1">{config.description}</p>
+                      <p className="text-[10px] sm:text-xs text-gray-500 mt-1">{config.description}</p>
                     </div>
                   </motion.div>
                 );
@@ -628,29 +626,29 @@ export default function DocumentHeatmap({ clauses = [], totalPages = 10 }) {
             </div>
 
             {/* Enhanced Statistics */}
-            <div className="grid md:grid-cols-3 gap-4">
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 sm:gap-4">
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 1.2 }}
-                className="bg-gradient-to-br from-blue-900/40 to-cyan-900/40 rounded-2xl p-5 border-2 border-blue-500/30 hover:border-blue-500/50 transition-all duration-300"
+                className="bg-gradient-to-br from-blue-900/40 to-cyan-900/40 rounded-xl sm:rounded-2xl p-4 sm:p-5 border-2 border-blue-500/30 hover:border-blue-500/50 transition-all duration-300"
               >
-                <div className="flex items-center gap-3 mb-3">
-                  <div className="w-12 h-12 bg-blue-500/20 rounded-xl flex items-center justify-center">
-                    <span className="text-3xl">📏</span>
+                <div className="flex items-center gap-2 sm:gap-3 mb-2 sm:mb-3">
+                  <div className="w-10 h-10 sm:w-12 sm:h-12 bg-blue-500/20 rounded-lg sm:rounded-xl flex items-center justify-center flex-shrink-0">
+                    <span className="text-2xl sm:text-3xl">📏</span>
                   </div>
-                  <h6 className="text-sm font-bold text-blue-400">Document Analysis</h6>
+                  <h6 className="text-xs sm:text-sm font-bold text-blue-400">Document Analysis</h6>
                 </div>
                 <div className="space-y-2">
                   <div className="flex justify-between items-center">
-                    <span className="text-xs text-gray-400">Total Pages</span>
-                    <span className="text-xl font-black text-white">{totalPages}</span>
+                    <span className="text-[10px] sm:text-xs text-gray-400">Total Pages</span>
+                    <span className="text-lg sm:text-xl font-black text-white">{totalPages}</span>
                   </div>
                   <div className="flex justify-between items-center">
-                    <span className="text-xs text-gray-400">Clause Density</span>
-                    <span className="text-xl font-black text-white">{(clauses.length / totalPages).toFixed(1)}</span>
+                    <span className="text-[10px] sm:text-xs text-gray-400">Clause Density</span>
+                    <span className="text-lg sm:text-xl font-black text-white">{(clauses.length / totalPages).toFixed(1)}</span>
                   </div>
-                  <p className="text-xs text-gray-400 pt-2 border-t border-blue-500/20">
+                  <p className="text-[10px] sm:text-xs text-gray-400 pt-2 border-t border-blue-500/20">
                     Average of {(clauses.length / totalPages).toFixed(1)} clauses per page
                   </p>
                 </div>
@@ -660,18 +658,18 @@ export default function DocumentHeatmap({ clauses = [], totalPages = 10 }) {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 1.3 }}
-                className="bg-gradient-to-br from-purple-900/40 to-pink-900/40 rounded-2xl p-5 border-2 border-purple-500/30 hover:border-purple-500/50 transition-all duration-300"
+                className="bg-gradient-to-br from-purple-900/40 to-pink-900/40 rounded-xl sm:rounded-2xl p-4 sm:p-5 border-2 border-purple-500/30 hover:border-purple-500/50 transition-all duration-300"
               >
-                <div className="flex items-center gap-3 mb-3">
-                  <div className="w-12 h-12 bg-purple-500/20 rounded-xl flex items-center justify-center">
-                    <span className="text-3xl">🎯</span>
+                <div className="flex items-center gap-2 sm:gap-3 mb-2 sm:mb-3">
+                  <div className="w-10 h-10 sm:w-12 sm:h-12 bg-purple-500/20 rounded-lg sm:rounded-xl flex items-center justify-center flex-shrink-0">
+                    <span className="text-2xl sm:text-3xl">🎯</span>
                   </div>
-                  <h6 className="text-sm font-bold text-purple-400">Risk Distribution</h6>
+                  <h6 className="text-xs sm:text-sm font-bold text-purple-400">Risk Distribution</h6>
                 </div>
                 <div className="space-y-2">
                   <div className="flex justify-between items-center">
-                    <span className="text-xs text-gray-400">Critical Issues</span>
-                    <span className="text-xl font-black text-red-400">{clausesBySeverity.critical.length}</span>
+                    <span className="text-[10px] sm:text-xs text-gray-400">Critical Issues</span>
+                    <span className="text-lg sm:text-xl font-black text-red-400">{clausesBySeverity.critical.length}</span>
                   </div>
                   <div className="w-full h-2 bg-gray-700 rounded-full overflow-hidden">
                     <motion.div
@@ -681,7 +679,7 @@ export default function DocumentHeatmap({ clauses = [], totalPages = 10 }) {
                       transition={{ duration: 1, delay: 1.5 }}
                     />
                   </div>
-                  <p className="text-xs text-gray-400 pt-2 border-t border-purple-500/20">
+                  <p className="text-[10px] sm:text-xs text-gray-400 pt-2 border-t border-purple-500/20">
                     {clauses.length > 0 ? ((clausesBySeverity.critical.length / clauses.length) * 100).toFixed(0) : 0}% of document requires immediate attention
                   </p>
                 </div>
@@ -691,18 +689,18 @@ export default function DocumentHeatmap({ clauses = [], totalPages = 10 }) {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 1.4 }}
-                className="bg-gradient-to-br from-emerald-900/40 to-teal-900/40 rounded-2xl p-5 border-2 border-emerald-500/30 hover:border-emerald-500/50 transition-all duration-300"
+                className="bg-gradient-to-br from-emerald-900/40 to-teal-900/40 rounded-xl sm:rounded-2xl p-4 sm:p-5 border-2 border-emerald-500/30 hover:border-emerald-500/50 transition-all duration-300"
               >
-                <div className="flex items-center gap-3 mb-3">
-                  <div className="w-12 h-12 bg-emerald-500/20 rounded-xl flex items-center justify-center">
-                    <span className="text-3xl">✅</span>
+                <div className="flex items-center gap-2 sm:gap-3 mb-2 sm:mb-3">
+                  <div className="w-10 h-10 sm:w-12 sm:h-12 bg-emerald-500/20 rounded-lg sm:rounded-xl flex items-center justify-center flex-shrink-0">
+                    <span className="text-2xl sm:text-3xl">✅</span>
                   </div>
-                  <h6 className="text-sm font-bold text-emerald-400">Favorable Terms</h6>
+                  <h6 className="text-xs sm:text-sm font-bold text-emerald-400">Favorable Terms</h6>
                 </div>
                 <div className="space-y-2">
                   <div className="flex justify-between items-center">
-                    <span className="text-xs text-gray-400">Safe Clauses</span>
-                    <span className="text-xl font-black text-green-400">{clausesBySeverity.safe.length}</span>
+                    <span className="text-[10px] sm:text-xs text-gray-400">Safe Clauses</span>
+                    <span className="text-lg sm:text-xl font-black text-green-400">{clausesBySeverity.safe.length}</span>
                   </div>
                   <div className="w-full h-2 bg-gray-700 rounded-full overflow-hidden">
                     <motion.div
@@ -712,29 +710,29 @@ export default function DocumentHeatmap({ clauses = [], totalPages = 10 }) {
                       transition={{ duration: 1, delay: 1.6 }}
                     />
                   </div>
-                  <p className="text-xs text-gray-400 pt-2 border-t border-emerald-500/20">
+                  <p className="text-[10px] sm:text-xs text-gray-400 pt-2 border-t border-emerald-500/20">
                     {clauses.length > 0 ? ((clausesBySeverity.safe.length / clauses.length) * 100).toFixed(0) : 0}% of terms are favorable to you
                   </p>
                 </div>
               </motion.div>
             </div>
 
-                        {/* Risk Progression Timeline */}
+            {/* Risk Progression Timeline */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 1.5 }}
-              className="bg-gradient-to-r from-gray-900/80 to-gray-800/80 backdrop-blur-xl rounded-2xl p-6 border border-gray-700/50"
+              className="bg-gradient-to-r from-gray-900/80 to-gray-800/80 backdrop-blur-xl rounded-xl sm:rounded-2xl p-4 sm:p-6 border border-gray-700/50"
             >
-              <div className="flex items-center gap-3 mb-4">
-                <span className="text-3xl">📈</span>
-                <div>
-                  <h6 className="text-lg font-bold text-white">Risk Progression Through Document</h6>
-                  <p className="text-xs text-gray-400">How risk levels change from start to finish</p>
+              <div className="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-3 mb-3 sm:mb-4">
+                <span className="text-2xl sm:text-3xl">📈</span>
+                <div className="flex-1">
+                  <h6 className="text-base sm:text-lg font-bold text-white">Risk Progression Through Document</h6>
+                  <p className="text-[10px] sm:text-xs text-gray-400">How risk levels change from start to finish</p>
                 </div>
               </div>
 
-              <div className="relative h-24 bg-gray-800/50 rounded-xl overflow-hidden">
+              <div className="relative h-20 sm:h-24 bg-gray-800/50 rounded-lg sm:rounded-xl overflow-hidden">
                 {/* Gradient background showing risk flow */}
                 <div className="absolute inset-0 flex">
                   {clauses.map((clause, idx) => {
@@ -770,15 +768,15 @@ export default function DocumentHeatmap({ clauses = [], totalPages = 10 }) {
                 </svg>
 
                 {/* Labels */}
-                <div className="absolute top-2 left-2 text-xs font-bold text-white bg-black/50 px-2 py-1 rounded">
+                <div className="absolute top-2 left-2 text-[10px] sm:text-xs font-bold text-white bg-black/50 px-2 py-1 rounded">
                   Start
                 </div>
-                <div className="absolute top-2 right-2 text-xs font-bold text-white bg-black/50 px-2 py-1 rounded">
+                <div className="absolute top-2 right-2 text-[10px] sm:text-xs font-bold text-white bg-black/50 px-2 py-1 rounded">
                   End
                 </div>
               </div>
 
-              <div className="flex justify-between mt-3 text-xs text-gray-400">
+              <div className="flex flex-col sm:flex-row justify-between gap-1 sm:gap-0 mt-3 text-[10px] sm:text-xs text-gray-400">
                 <span>Beginning of Contract</span>
                 <span className="text-purple-400 font-semibold">← Risk Flow →</span>
                 <span>End of Contract</span>
@@ -793,19 +791,19 @@ export default function DocumentHeatmap({ clauses = [], totalPages = 10 }) {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -20 }}
             transition={{ duration: 0.3 }}
-            className="space-y-3"
+            className="space-y-2 sm:space-y-3"
           >
             {filteredClauses.length === 0 ? (
-              <div className="text-center py-16 bg-gray-900/30 rounded-xl border border-gray-700/50">
+              <div className="text-center py-12 sm:py-16 bg-gray-900/30 rounded-xl border border-gray-700/50">
                 <motion.span 
-                  className="text-7xl mb-4 block"
+                  className="text-5xl sm:text-7xl mb-4 block"
                   animate={{ scale: [1, 1.1, 1] }}
                   transition={{ duration: 2, repeat: Infinity }}
                 >
                   📭
                 </motion.span>
-                <p className="text-gray-400 text-lg font-semibold">No clauses match the selected filter</p>
-                <p className="text-gray-500 text-sm mt-2">Try selecting a different category</p>
+                <p className="text-gray-400 text-base sm:text-lg font-semibold">No clauses match the selected filter</p>
+                <p className="text-gray-500 text-xs sm:text-sm mt-2">Try selecting a different category</p>
               </div>
             ) : (
               filteredClauses.map((clause, index) => {
@@ -820,11 +818,20 @@ export default function DocumentHeatmap({ clauses = [], totalPages = 10 }) {
                     whileHover={{ x: 8, scale: 1.01 }}
                     className="group relative"
                   >
-                    <div className={`absolute inset-0 bg-gradient-to-r ${config.bgGradient} rounded-xl blur-sm group-hover:blur-md transition-all duration-300`} />
+                    <div className={`absolute inset-0 bg-gradient-to-r ${config.bgGradient} rounded-lg sm:rounded-xl blur-sm group-hover:blur-md transition-all duration-300`} />
                     
-                    <div className={`relative flex items-center gap-4 bg-gray-900/90 rounded-xl p-5 border-2 ${config.borderColor}/30 group-hover:${config.borderColor}/60 transition-all duration-300`}>
+                    <div className={`relative flex flex-col sm:flex-row sm:items-center gap-3 sm:gap-4 bg-gray-900/90 rounded-lg sm:rounded-xl p-4 sm:p-5 border-2 ${config.borderColor}/30 group-hover:${config.borderColor}/60 transition-all duration-300`}>
                       {/* Risk indicator bar */}
-                      <div className={`w-2 h-20 ${config.color} rounded-full ${config.glow} flex-shrink-0 relative`}>
+                      <div className={`hidden sm:block w-2 h-20 ${config.color} rounded-full ${config.glow} flex-shrink-0 relative`}>
+                        <motion.div
+                          className={`absolute inset-0 ${config.color} rounded-full`}
+                          animate={{ scale: [1, 1.2, 1], opacity: [0.7, 0.3, 0.7] }}
+                          transition={{ duration: 2, repeat: Infinity, delay: index * 0.1 }}
+                        />
+                      </div>
+                      
+                      {/* Mobile risk indicator */}
+                      <div className={`sm:hidden w-full h-1 ${config.color} rounded-full ${config.glow} relative`}>
                         <motion.div
                           className={`absolute inset-0 ${config.color} rounded-full`}
                           animate={{ scale: [1, 1.2, 1], opacity: [0.7, 0.3, 0.7] }}
@@ -835,15 +842,15 @@ export default function DocumentHeatmap({ clauses = [], totalPages = 10 }) {
                       {/* Content */}
                       <div className="flex-1 min-w-0">
                         <div className="flex items-center gap-2 mb-2 flex-wrap">
-                          <span className="text-2xl">{config.icon}</span>
-                          <h6 className="font-bold text-white text-base truncate flex-1">{clause.title}</h6>
-                          <span className={`px-3 py-1 rounded-full text-xs font-bold ${config.color} text-white`}>
+                          <span className="text-xl sm:text-2xl">{config.icon}</span>
+                          <h6 className="font-bold text-white text-sm sm:text-base truncate flex-1">{clause.title}</h6>
+                          <span className={`px-2 sm:px-3 py-0.5 sm:py-1 rounded-full text-[10px] sm:text-xs font-bold ${config.color} text-white`}>
                             {config.label}
                           </span>
                         </div>
-                        <p className="text-sm text-gray-400 line-clamp-2 mb-2">{clause.description}</p>
+                        <p className="text-xs sm:text-sm text-gray-400 line-clamp-2 mb-2">{clause.description}</p>
                         
-                        <div className="flex items-center gap-3 text-xs">
+                        <div className="flex flex-wrap items-center gap-2 sm:gap-3 text-[10px] sm:text-xs">
                           <span className="flex items-center gap-1 text-gray-500">
                             <span>📍</span>
                             {clause.location}
@@ -865,7 +872,7 @@ export default function DocumentHeatmap({ clauses = [], totalPages = 10 }) {
                       <motion.button
                         whileHover={{ scale: 1.1 }}
                         whileTap={{ scale: 0.9 }}
-                        className={`px-4 py-2 rounded-lg text-xs font-bold ${config.color} text-white flex-shrink-0`}
+                        className={`w-full sm:w-auto px-4 py-2 rounded-lg text-xs font-bold ${config.color} text-white flex-shrink-0`}
                       >
                         View Details
                       </motion.button>

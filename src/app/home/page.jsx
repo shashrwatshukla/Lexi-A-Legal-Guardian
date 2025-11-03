@@ -56,7 +56,7 @@ const MagicFeatureCard = memo(({ feature, index }) => {
 
 MagicFeatureCard.displayName = 'MagicFeatureCard';
 
-// ✅ OPTIMIZED: Simplified success notification
+// ✅ FIXED: Success notification with LEFT → CENTER → RIGHT animation
 const SuccessNotification = memo(({ onClose }) => {
   const [mounted, setMounted] = useState(false);
 
@@ -70,10 +70,16 @@ const SuccessNotification = memo(({ onClose }) => {
 
   const notificationContent = (
     <motion.div
-      initial={{ y: -100, opacity: 0 }}
-      animate={{ y: 0, opacity: 1 }}
-      exit={{ y: -100, opacity: 0 }}
-      transition={{ duration: 0.3 }}
+      initial={{ x: '-100vw', opacity: 0 }}
+      animate={{ 
+        x: ['-100vw', '0vw', '0vw', '100vw'],
+        opacity: [0, 1, 1, 0]
+      }}
+      transition={{ 
+        duration: 5,
+        times: [0, 0.2, 0.8, 1],
+        ease: ['easeOut', 'linear', 'easeIn']
+      }}
       style={{
         position: 'fixed',
         top: '20px',
@@ -118,6 +124,7 @@ const SuccessNotification = memo(({ onClose }) => {
 
   return createPortal(notificationContent, document.body);
 });
+
 
 SuccessNotification.displayName = 'SuccessNotification';
 
