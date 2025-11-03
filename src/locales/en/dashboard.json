@@ -1,0 +1,53 @@
+﻿{
+  "welcomeMessage": "Welcome back, {name}",
+  
+  "stats": {
+    "uploaded": "Documents Uploaded",
+    "analyzed": "Documents Analyzed",
+    "drafted": "Documents Drafted"
+  },
+
+  "profile": {
+    "title": "Your Profile",
+    "memberSince": "Member since {date}",
+    "name": "Full Name",
+    "username": "Username",
+    "email": "Email Address",
+    "gender": "Gender",
+    "dateOfBirth": "Date of Birth",
+    "readOnly": "Read-only",
+    "usernameChanged": "Changed",
+    "clickToChange": "Click to change (one-time)",
+    "usernameWarning": "You can only change your username once"
+  },
+
+  "documents": {
+    "title": "Recent Documents",
+    "noDocuments": "No documents yet",
+    "uploadFirst": "Upload your first document to get started",
+    "uploadedOn": "Uploaded on {date} at {time}",
+    "riskLevel": {
+      "high": "High Risk",
+      "medium": "Medium Risk",
+      "low": "Low Risk"
+    },
+    "status": {
+      "analyzed": "Analyzed",
+      "pending": "Pending",
+      "archived": "Archived"
+    },
+    "actions": {
+      "viewReport": "View Report",
+      "download": "Download",
+      "delete": "Delete"
+    },
+    "deleteConfirm": "Delete this document?",
+    "deleteSuccess": "Document deleted successfully",
+    "deleteFailed": "Failed to delete document"
+  },
+
+  "legalTip": {
+    "title": "Daily Legal Tip",
+    "learnMore": "Learn More"
+  }
+}

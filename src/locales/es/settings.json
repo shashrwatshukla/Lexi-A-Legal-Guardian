@@ -1,0 +1,104 @@
+﻿{
+  "title": "Configuración",
+  "backToDashboard": "Volver al Panel",
+  "sections": {
+    "account": "Cuenta",
+    "privacy": "Privacidad y Seguridad",
+    "language": "Idioma y Región",
+    "storage": "Almacenamiento y Datos",
+    "support": "Soporte y Ayuda",
+    "about": "Acerca de y Legal"
+  },
+  "account": {
+    "title": "Configuración de Cuenta",
+    "changePassword": {
+      "title": "Cambiar Contraseña",
+      "currentPassword": "Contraseña Actual",
+      "newPassword": "Nueva Contraseña",
+      "confirmPassword": "Confirmar Nueva Contraseña",
+      "button": "Actualizar Contraseña",
+      "success": "Contraseña cambiada correctamente",
+      "error": "Error al cambiar contraseña",
+      "wrongPassword": "La contraseña actual es incorrecta",
+      "passwordMismatch": "Las contraseñas no coinciden",
+      "weakPassword": "La contraseña es demasiado débil (mín. 6 caracteres)"
+    },
+    "deleteAccount": {
+      "title": "Eliminar Cuenta",
+      "description": "Eliminar permanentemente tu cuenta y todos los datos",
+      "button": "Eliminar Mi Cuenta",
+      "confirmTitle": "¿Estás absolutamente seguro?",
+      "confirmMessage": "Esta acción no se puede deshacer. Todos tus documentos y datos serán eliminados permanentemente.",
+      "enterPassword": "Ingresa tu contraseña para confirmar",
+      "confirmButton": "Sí, Eliminar Mi Cuenta",
+      "success": "Cuenta eliminada correctamente",
+      "error": "Error al eliminar cuenta"
+    }
+  },
+  "privacy": {
+    "title": "Privacidad y Seguridad",
+    "twoFactor": {
+      "title": "Autenticación de Dos Factores",
+      "description": "Agrega una capa extra de seguridad a tu cuenta",
+      "enabled": "Activado",
+      "disabled": "Desactivado",
+      "enable": "Activar 2FA",
+      "disable": "Desactivar 2FA",
+      "scanQR": "Escanea este código QR con Google Authenticator",
+      "enterCode": "Ingresa el código de 6 dígitos para verificar",
+      "success": "2FA activado correctamente",
+      "error": "Error al activar 2FA"
+    },
+    "sessions": {
+      "title": "Sesiones Activas",
+      "description": "Administra los dispositivos donde has iniciado sesión",
+      "currentDevice": "Dispositivo Actual",
+      "lastActive": "Última actividad: {time}",
+      "logoutDevice": "Cerrar Sesión",
+      "logoutAll": "Cerrar Todas las Sesiones",
+      "noSessions": "No hay otras sesiones activas"
+    },
+    "downloadData": {
+      "title": "Descargar Mis Datos",
+      "description": "Exporta todos tus datos en formato JSON",
+      "button": "Descargar Datos",
+      "success": "Datos descargados correctamente",
+      "error": "Error al descargar datos"
+    }
+  },
+  "language": {
+    "title": "Idioma y Región",
+    "language": "Idioma",
+    "selectLanguage": "Seleccionar Idioma",
+    "dateFormat": "Formato de Fecha",
+    "changeSuccess": "Idioma cambiado correctamente",
+    "changeError": "Error al cambiar idioma",
+    "reloadRequired": "La página se recargará para aplicar los cambios"
+  },
+  "storage": {
+    "title": "Almacenamiento y Datos",
+    "documentsStored": "Documentos Almacenados",
+    "storageUsed": "Almacenamiento Usado",
+    "of": "de",
+    "clearCache": "Limpiar Caché",
+    "deleteAllDocuments": "Eliminar Todos los Documentos",
+    "cacheCleared": "Caché limpiada correctamente",
+    "documentsDeleted": "Todos los documentos eliminados",
+    "confirmDeleteAll": "¿Estás seguro de que quieres eliminar TODOS los documentos? Esto no se puede deshacer."
+  },
+  "support": {
+    "title": "Soporte y Ayuda",
+    "helpCenter": "Centro de Ayuda",
+    "contactSupport": "Contactar Soporte",
+    "reportBug": "Reportar un Error",
+    "featureRequest": "Solicitar Función",
+    "email": "Escríbenos a support@lexi.com"
+  },
+  "about": {
+    "title": "Acerca de y Legal",
+    "termsOfService": "Términos de Servicio",
+    "privacyPolicy": "Política de Privacidad",
+    "licenses": "Licencias de Código Abierto",
+    "version": "Versión de la Aplicación"
+  }
+}

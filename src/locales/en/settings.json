@@ -1,0 +1,99 @@
+{
+  "title": "Settings",
+  "backToDashboard": "Back to Dashboard",
+  
+  "sections": {
+    "account": "Account",
+    "privacy": "Privacy & Security",
+    "language": "Language & Region",
+    "storage": "Storage & Data",
+    "support": "Help & Support",
+    "about": "About & Legal"
+  },
+
+  "account": {
+    "title": "Account Settings",
+    "changePassword": {
+      "title": "Change Password",
+      "button": "Change Password",
+      "currentPassword": "Current Password",
+      "newPassword": "New Password",
+      "confirmPassword": "Confirm New Password",
+      "success": "Password changed successfully!",
+      "error": "Failed to change password",
+      "passwordMismatch": "Passwords do not match",
+      "weakPassword": "Password is too weak"
+    },
+    "deleteAccount": {
+      "title": "Delete Account",
+      "description": "Permanently delete your account and all data. This action cannot be undone.",
+      "button": "Delete Account",
+      "confirmTitle": "Delete Account?",
+      "confirmMessage": "This action is permanent and cannot be undone. All your data will be deleted.",
+      "confirmButton": "Delete Forever",
+      "enterPassword": "Enter your password to confirm",
+      "success": "Account deleted successfully",
+      "error": "Failed to delete account"
+    }
+  },
+
+  "privacy": {
+    "title": "Privacy & Security",
+    "twoFactor": {
+      "title": "Two-Factor Authentication",
+      "description": "Add an extra layer of security to your account",
+      "enabled": "Enabled",
+      "disabled": "Disabled"
+    },
+    "sessions": {
+      "title": "Active Sessions",
+      "description": "Manage devices where you're currently logged in",
+      "currentDevice": "Current Device",
+      "noSessions": "No other active sessions"
+    },
+    "downloadData": {
+      "title": "Download Your Data",
+      "description": "Export all your account data as a JSON file",
+      "button": "Export Data",
+      "success": "Data exported successfully!",
+      "error": "Failed to export data"
+    }
+  },
+
+  "language": {
+    "title": "Language Settings",
+    "description": "Choose your preferred language for the interface",
+    "currentLanguage": "Current Language",
+    "availableLanguages": "Available Languages",
+    "selected": "Selected"
+  },
+
+  "storage": {
+    "title": "Storage Management",
+    "storageUsed": "Storage Used",
+    "of": "of",
+    "documentsStored": "Documents Stored",
+    "clearCache": "Clear Cache",
+    "cacheCleared": "Cache cleared successfully!",
+    "deleteAllDocuments": "Delete All Documents",
+    "confirmDeleteAll": "Delete all documents? This cannot be undone!",
+    "documentsDeleted": "All documents deleted successfully"
+  },
+
+  "support": {
+    "title": "Help & Support",
+    "helpCenter": "Help Center",
+    "contactSupport": "Contact Support",
+    "email": "Get help via email",
+    "reportBug": "Report a Bug",
+    "featureRequest": "Feature Request"
+  },
+
+  "about": {
+    "title": "About Lexi",
+    "version": "Version",
+    "termsOfService": "Terms of Service",
+    "privacyPolicy": "Privacy Policy",
+    "licenses": "Open Source Licenses"
+  }
+}

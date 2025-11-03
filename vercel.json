@@ -1,0 +1,3 @@
+{
+  "buildCommand": "echo \"$GOOGLE_CREDENTIALS_CONTENT\" > google-cloud-credentials.json && next build"
+}

@@ -1,0 +1,56 @@
+﻿{
+  "welcome": "Bienvenido de nuevo",
+  "welcomeMessage": "¡Bienvenido de nuevo, {name}!",
+  "stats": {
+    "uploaded": "Subidos",
+    "analyzed": "Analizados",
+    "drafted": "Redactados",
+    "documents": "Documentos",
+    "thisWeek": "Esta Semana",
+    "thisMonth": "Este Mes",
+    "total": "Total"
+  },
+  "profile": {
+    "title": "Perfil",
+    "memberSince": "Miembro desde {date}",
+    "name": "Nombre",
+    "username": "Nombre de Usuario",
+    "email": "Correo Electrónico",
+    "gender": "Género",
+    "dateOfBirth": "Fecha de Nacimiento",
+    "region": "Región",
+    "editMode": "Modo de Edición",
+    "usernameWarning": "Solo puedes cambiar tu nombre de usuario una vez",
+    "usernameChanged": "Ya cambiado",
+    "clickToChange": "Haz clic para cambiar una vez",
+    "readOnly": "Solo lectura"
+  },
+  "documents": {
+    "title": "Documentos Recientes",
+    "noDocuments": "Aún no hay documentos",
+    "uploadFirst": "Sube tu primer contrato para analizar",
+    "uploadedOn": "Subido el {date} a las {time}",
+    "riskLevel": {
+      "high": "Alto Riesgo",
+      "medium": "Riesgo Medio",
+      "low": "Bajo Riesgo"
+    },
+    "status": {
+      "analyzed": "Analizado",
+      "pending": "Pendiente",
+      "archived": "Archivado"
+    },
+    "actions": {
+      "viewReport": "Ver Informe",
+      "download": "Descargar",
+      "delete": "Eliminar"
+    },
+    "deleteConfirm": "¿Estás seguro de que quieres eliminar este documento?",
+    "deleteSuccess": "Documento eliminado correctamente",
+    "deleteFailed": "Error al eliminar documento"
+  },
+  "legalTip": {
+    "title": "Consejo Legal del Día",
+    "learnMore": "Aprender Más"
+  }
+}
