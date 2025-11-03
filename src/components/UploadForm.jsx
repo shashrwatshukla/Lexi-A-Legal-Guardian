@@ -74,9 +74,42 @@ export default function UploadForm({ onDocumentUpload, loading, uploadProgress, 
       <motion.div
         initial={{ opacity: 0, scale: 0.8 }}
         animate={{ opacity: 1, scale: 1 }}
-        className="text-center"
+        className="text-center flex flex-col items-center gap-4"
       >
         <LoadingSpinner progress={uploadProgress} />
+        
+        {/* ✅ DYNAMIC STATUS MESSAGES - CENTERED BELOW SPINNER */}
+        {uploadProgress < 100 && (
+          <motion.div
+            initial={{ opacity: 0, y: -10 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: 10 }}
+            className="flex flex-col items-center gap-2"
+          >
+            {/* Status Message */}
+            <div className="bg-black/30 backdrop-blur-sm border border-gray-700/50 rounded-lg px-4 py-2">
+              <p className="text-gray-300 text-xs font-medium text-center">
+                {uploadProgress < 30 && "📤 Uploading your file..."}
+                {uploadProgress >= 30 && uploadProgress < 60 && "🔄 Transferring securely..."}
+                {uploadProgress >= 60 && uploadProgress < 90 && "🧠 AI analyzing document..."}
+                {uploadProgress >= 90 && uploadProgress < 100 && "✨ Almost done..."}
+              </p>
+            </div>
+
+            {/* Estimated Time */}
+            <div className="flex items-center gap-1.5 text-[10px] text-gray-500">
+              <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+              </svg>
+              <span>
+                {uploadProgress < 30 && "~20 seconds remaining"}
+                {uploadProgress >= 30 && uploadProgress < 60 && "~15 seconds remaining"}
+                {uploadProgress >= 60 && uploadProgress < 90 && "~10 seconds remaining"}
+                {uploadProgress >= 90 && uploadProgress < 100 && "~5 - 10 seconds remaining"}
+              </span>
+            </div>
+          </motion.div>
+        )}
       </motion.div>
     );
   }

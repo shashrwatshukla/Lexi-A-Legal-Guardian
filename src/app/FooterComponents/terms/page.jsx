@@ -126,7 +126,7 @@ export default function TermsPage() {
           <section className="backdrop-blur-sm bg-white/5 p-4 sm:p-6 rounded-2xl border border-white/10">
             <h2 className="text-xl sm:text-2xl font-bold text-white mb-4">Contact</h2>
             <p className="text-white/70 text-sm sm:text-base">
-              Questions about these terms? Contact us at: <a href="mailto:legal@lexi.ai" className="text-purple-400 hover:text-purple-300">legal@lexi.ai</a>
+              Questions about these terms? Contact us at: <a href="mailto:asklexiofficial@gmail.com" className="text-purple-400 hover:text-purple-300">legal@lexi.ai</a>
             </p>
           </section>
         </div>

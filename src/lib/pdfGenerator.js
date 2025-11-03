@@ -5,12 +5,27 @@ export async function generatePDFWithTemplate(documentText, documentTitle, docum
     const pdfDoc = await PDFDocument.create();
     
     // Load template
-    const response = await fetch('/media/Templates-page.png');
-    if (!response.ok) throw new Error('Template not found');
+// ✅ NEW CODE - Better error handling
+let templateImage = null;
+let pageWidth = 595.28;  // A4 default
+let pageHeight = 841.89; // A4 default
+
+try {
+  const response = await fetch('/media/Templates-page.png');
+  
+  if (response.ok) {
     const templateBytes = await response.arrayBuffer();
-    const templateImage = await pdfDoc.embedPng(templateBytes);
-    
-    const { width: pageWidth, height: pageHeight } = templateImage.scale(1);
+    templateImage = await pdfDoc.embedPng(templateBytes);
+    const dimensions = templateImage.scale(1);
+    pageWidth = dimensions.width;
+    pageHeight = dimensions.height;
+    console.log('✅ Template loaded successfully');
+  } else {
+    console.warn('⚠️ Template not found, using default page size');
+  }
+} catch (error) {
+  console.warn('⚠️ Template loading failed, using default page size:', error.message);
+}
     
     // Fonts
     const regularFont = await pdfDoc.embedFont(StandardFonts.Helvetica);
@@ -123,13 +138,24 @@ export async function generatePDFWithTemplate(documentText, documentTitle, docum
     for (let pageNum = 0; pageNum < totalPages; pageNum++) {
       const page = pdfDoc.addPage([pageWidth, pageHeight]);
       
-      // Draw template
-      page.drawImage(templateImage, {
-        x: 0,
-        y: 0,
-        width: pageWidth,
-        height: pageHeight,
-      });
+// ✅ NEW CODE - Only draw if template exists
+if (templateImage) {
+  page.drawImage(templateImage, {
+    x: 0,
+    y: 0,
+    width: pageWidth,
+    height: pageHeight,
+  });
+} else {
+  // Draw white background as fallback
+  page.drawRectangle({
+    x: 0,
+    y: 0,
+    width: pageWidth,
+    height: pageHeight,
+    color: rgb(1, 1, 1),
+  });
+}
       
       // ===========================================
       // *CHANGED: PAGE NUMBER - TOP RIGHT*

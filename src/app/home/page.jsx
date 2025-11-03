@@ -35,7 +35,7 @@ const Plasma = dynamic(() => import('../../components/ui/Plasma'), {
 // ✅ OPTIMIZED: Simplified feature card with GPU acceleration
 const MagicFeatureCard = memo(({ feature, index }) => {
   return (
-    <div 
+    <div
       className="w-[280px] sm:w-[320px] md:w-[360px] lg:w-[380px] flex-shrink-0"
       style={{ willChange: 'transform' }}
     >
@@ -71,11 +71,11 @@ const SuccessNotification = memo(({ onClose }) => {
   const notificationContent = (
     <motion.div
       initial={{ x: '-100vw', opacity: 0 }}
-      animate={{ 
+      animate={{
         x: ['-100vw', '0vw', '0vw', '100vw'],
         opacity: [0, 1, 1, 0]
       }}
-      transition={{ 
+      transition={{
         duration: 5,
         times: [0, 0.2, 0.8, 1],
         ease: ['easeOut', 'linear', 'easeIn']
@@ -97,12 +97,12 @@ const SuccessNotification = memo(({ onClose }) => {
               <span className="text-2xl">✨</span>
               <span className="text-2xl">🎯</span>
             </div>
-            
+
             <div className="flex items-center gap-4">
               <span className="text-white font-bold text-base">
                 Analysis Complete!
               </span>
-              
+
               <button
                 onClick={() => {
                   const resultsSection = document.querySelector('[data-results-section]');
@@ -125,14 +125,13 @@ const SuccessNotification = memo(({ onClose }) => {
   return createPortal(notificationContent, document.body);
 });
 
-
 SuccessNotification.displayName = 'SuccessNotification';
 
 export default function Home() {
   const router = useRouter();
   const [authChecked, setAuthChecked] = useState(false);
   const { saveAnalysis, clearAnalysis } = useAnalysis();
-  
+
   const [uploadedFile, setUploadedFile] = useState(null);
   const [analysisResult, setAnalysisResult] = useState(null);
   const [loading, setLoading] = useState(false);
@@ -194,9 +193,9 @@ export default function Home() {
     setAnalysisResult(null);
     setUploadProgress(0);
     setAnalyzing(true);
-    
+
     clearAnalysis();
-    
+
     sessionStorage.removeItem('voiceSummaryUrl');
     sessionStorage.removeItem('voiceSummaryMetadata');
 
@@ -227,7 +226,7 @@ export default function Home() {
       });
 
       const data = await response.json();
-      
+
       if (progressIntervalRef.current) {
         clearInterval(progressIntervalRef.current);
         progressIntervalRef.current = null;
@@ -238,10 +237,10 @@ export default function Home() {
 
       if (data.success && data.analysis) {
         setAnalysisResult(data);
-        
+
         if (data.analysis && data.analysis.metadata) {
           setDocumentAnalysis(data.analysis, data.analysis.metadata.fileName);
-          
+
           saveAnalysis({
             documentName: data.analysis.metadata?.fileName || file.name,
             analysisResults: data.analysis,
@@ -272,7 +271,7 @@ export default function Home() {
           fileName: file.name,
           uploadTime: new Date().toISOString()
         }));
-        
+
         setShowSuccessNotification(true);
       } else {
         console.error('Analysis failed:', data.error);
@@ -301,17 +300,17 @@ export default function Home() {
   // ✅ Simplified auth check
   useEffect(() => {
     let mounted = true;
-    
+
     const unsubscribe = onAuthStateChanged(auth, (user) => {
       if (!mounted) return;
-      
+
       if (user && user.emailVerified) {
         setAuthChecked(true);
       } else {
         router.replace('/auth');
       }
     });
-    
+
     return () => {
       mounted = false;
       unsubscribe();
@@ -323,17 +322,17 @@ export default function Home() {
     const checkMobile = () => {
       setIsMobile(window.innerWidth < 768);
     };
-    
+
     checkMobile();
-    
+
     let resizeTimer;
     const handleResize = () => {
       clearTimeout(resizeTimer);
       resizeTimer = setTimeout(checkMobile, 250);
     };
-    
+
     window.addEventListener('resize', handleResize, { passive: true });
-    
+
     return () => {
       window.removeEventListener('resize', handleResize);
       clearTimeout(resizeTimer);
@@ -345,13 +344,13 @@ export default function Home() {
     const returning = sessionStorage.getItem('returning_from_detail');
     if (returning === 'true') {
       sessionStorage.removeItem('returning_from_detail');
-      
+
       const storedAnalysis = sessionStorage.getItem('current_document_analysis');
       if (storedAnalysis) {
         try {
           const parsedAnalysis = JSON.parse(storedAnalysis);
           setAnalysisResult({ analysis: parsedAnalysis, success: true });
-          
+
           setTimeout(() => {
             const resultsSection = document.querySelector('[data-results-section]');
             if (resultsSection) {
@@ -390,7 +389,7 @@ export default function Home() {
   return (
     <>
       <SideNav />
-      
+
       <AnimatePresence mode="wait">
         {showSuccessNotification && (
           <SuccessNotification onClose={() => setShowSuccessNotification(false)} />
@@ -398,7 +397,7 @@ export default function Home() {
       </AnimatePresence>
 
       <main className="relative min-h-screen bg-black text-white overflow-x-hidden">
-        
+
         {/* ✅ CSS for scrolling animation */}
         <style jsx global>{`
           @keyframes scroll-features {
@@ -431,9 +430,9 @@ export default function Home() {
 
         {/* ✅ OPTIMIZED: Aurora only on desktop, with GPU hint */}
         {!isMobile && (
-          <div 
+          <div
             className="fixed top-0 left-0 right-0 pointer-events-none"
-            style={{ 
+            style={{
               height: '300px',
               zIndex: 1,
               clipPath: 'inset(0 0 0 0)',
@@ -452,7 +451,7 @@ export default function Home() {
         )}
 
         <div ref={mainContentRef} className="relative z-10">
-          
+
           {/* Hero Section */}
           <section ref={heroRef} className="relative w-full min-h-[45vh] sm:min-h-[50vh] md:min-h-[60vh] flex flex-col items-center justify-center px-4 sm:px-6 md:px-8 pt-16 sm:pt-18 md:pt-20">
             <motion.div
@@ -461,9 +460,9 @@ export default function Home() {
               transition={{ duration: 0.4 }}
               className="text-center max-w-7xl mx-auto w-full"
             >
-              <h1 
+              <h1
                 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-black mb-3 md:mb-4 px-2"
-                style={{ 
+                style={{
                   paddingBottom: '0.5rem',
                   lineHeight: '1.3',
                   display: 'flex',
@@ -474,9 +473,9 @@ export default function Home() {
                   gap: '0.2em'
                 }}
               >
-                <span 
+                <span
                   className="bg-gradient-to-r from-indigo-400 via-pink-500 to-purple-500 bg-clip-text text-transparent"
-                  style={{ 
+                  style={{
                     flexShrink: 0,
                     fontSize: 'clamp(1em, 1.3em, 1.5em)',
                     paddingBottom: '0.1em'
@@ -487,7 +486,7 @@ export default function Home() {
                 <HeroText />
               </h1>
 
-              <p 
+              <p
                 className="text-sm sm:text-base md:text-lg lg:text-xl xl:text-2xl text-gray-300 mb-6 md:mb-8 px-4 sm:px-6"
                 style={{
                   paddingBottom: '0.3em',
@@ -503,8 +502,8 @@ export default function Home() {
                 <span className="text-pink-400 font-semibold"> protecting your interests</span> with intelligent insights
               </p>
             </motion.div>
-            
-            <div 
+
+            <div
               className="absolute inset-x-0 bottom-0 h-24 sm:h-32 md:h-48 pointer-events-none"
               style={{
                 background: 'linear-gradient(to bottom, transparent 0%, rgba(0,0,0,0.5) 50%, black 100%)',
@@ -514,8 +513,8 @@ export default function Home() {
           </section>
 
           {/* ✅ OPTIMIZED: Video section with reduced overlays */}
-          <section 
-            ref={uploadSectionRef} 
+          <section
+            ref={uploadSectionRef}
             className="relative w-full min-h-[70vh] sm:min-h-[80vh] md:min-h-screen flex items-center justify-center overflow-hidden px-4 sm:px-6"
             style={{ backgroundColor: 'black' }}
           >
@@ -527,7 +526,7 @@ export default function Home() {
                   muted
                   playsInline
                   className="absolute inset-0 w-full h-full object-cover"
-                  style={{ 
+                  style={{
                     opacity: 0.7,
                     willChange: 'transform'
                   }}
@@ -535,7 +534,7 @@ export default function Home() {
                 >
                   <source src="/media/encryption-bg.webm" type="video/webm" />
                 </video>
-                
+
                 <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-transparent to-black/80" />
                 <div className="absolute inset-0 bg-black/20" />
               </div>
@@ -546,7 +545,7 @@ export default function Home() {
             )}
 
             <div className="relative z-10 w-full max-w-4xl mx-auto">
-              <UploadForm 
+              <UploadForm
                 onDocumentUpload={handleDocumentUpload}
                 loading={loading}
                 uploadProgress={uploadProgress}
@@ -559,9 +558,9 @@ export default function Home() {
           {analysisResult && !loading && (
             <div className="relative bg-black">
               <div className="absolute inset-0 bg-black" style={{ zIndex: 0 }} />
-              
+
               <div className="relative" style={{ zIndex: 1 }}>
-                <AnalysisResults 
+                <AnalysisResults
                   analysisResult={analysisResult.analysis}
                   onExportAnalysis={exportAnalysis}
                   onAnalyzeAnother={() => {
@@ -578,12 +577,12 @@ export default function Home() {
 
           {/* PLASMA SECTION */}
           <div ref={whyLexiSectionRef} className="relative -mt-0">
-            
+
             {/* ✅ OPTIMIZED: Plasma with reduced effects */}
             {!isMobile && (
-              <div 
-                className="absolute pointer-events-none" 
-                style={{ 
+              <div
+                className="absolute pointer-events-none"
+                style={{
                   zIndex: 1,
                   top: 0,
                   left: 0,
@@ -607,12 +606,12 @@ export default function Home() {
               </div>
             )}
 
-            <div 
-              className="absolute inset-x-0 top-0 h-20 sm:h-24 md:h-32 pointer-events-none" 
-              style={{ 
-                background: 'linear-gradient(to bottom, black 0%, transparent 100%)', 
-                zIndex: 5 
-              }} 
+            <div
+              className="absolute inset-x-0 top-0 h-20 sm:h-24 md:h-32 pointer-events-none"
+              style={{
+                background: 'linear-gradient(to bottom, black 0%, transparent 100%)',
+                zIndex: 5
+              }}
             />
 
             {/* Features Section - ✅ SCROLLING ANIMATION RESTORED */}
@@ -625,7 +624,7 @@ export default function Home() {
                 className="max-w-6xl mx-auto px-4 sm:px-6 md:px-8 relative z-10"
               >
                 <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-center mb-8 sm:mb-12 md:mb-16">
-                  <span 
+                  <span
                     style={{
                       background: 'linear-gradient(to right, rgb(96, 165, 250), rgb(168, 85, 247))',
                       WebkitBackgroundClip: 'text',
@@ -640,11 +639,11 @@ export default function Home() {
                   </span>
                 </h2>
               </motion.div>
-              
+
               <div className="relative z-10">
                 <div className="absolute left-0 top-0 w-12 sm:w-16 md:w-32 h-full bg-gradient-to-r from-black to-transparent z-10" />
                 <div className="absolute right-0 top-0 w-12 sm:w-16 md:w-32 h-full bg-gradient-to-l from-black to-transparent z-10" />
-                
+
                 {/* ✅ RESTORED: Infinite scroll animation */}
                 <div className="flex gap-3 md:gap-4 animate-scroll-features px-4 overflow-x-auto scrollbar-hide touch-pan-x">
                   {featureData.concat(featureData).map((feature, index) => (
@@ -662,7 +661,7 @@ export default function Home() {
             <section className="relative w-full py-10 sm:py-12 md:py-20 px-4 sm:px-6 md:px-8">
               <div className="max-w-4xl mx-auto text-center relative z-10">
                 <div className="backdrop-blur-sm bg-black/20 rounded-xl sm:rounded-2xl md:rounded-3xl p-6 sm:p-8 md:p-12">
-                  <h2 className="text-lg sm:text-xl md:text-2xl lg:text-3xl xl:text-4xl font-bold mb-3 sm:mb-4 md:mb-6 bg-gradient-to-r from-cyan-400 to-purple-500 bg-clip-text text-transparent px-2" 
+                  <h2 className="text-lg sm:text-xl md:text-2xl lg:text-3xl xl:text-4xl font-bold mb-3 sm:mb-4 md:mb-6 bg-gradient-to-r from-cyan-400 to-purple-500 bg-clip-text text-transparent px-2"
                     style={{ lineHeight: '1.3' }}>
                     Ready to Protect Your Interests?
                   </h2>
@@ -673,13 +672,15 @@ export default function Home() {
                   <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center items-stretch sm:items-center mb-4 sm:mb-6">
                     <button
                       onClick={() => {
-                        const section = uploadSectionRef.current;
-                        if (section) {
-                          const top = section.offsetTop - 100;
-                          window.scrollTo({ 
-                            top: top, 
-                            behavior: 'smooth' 
+                        // ✅ FIXED: Scroll to upload section
+                        if (uploadSectionRef.current) {
+                          uploadSectionRef.current.scrollIntoView({
+                            behavior: 'smooth',
+                            block: 'start'
                           });
+                        } else {
+                          // Fallback: scroll to top
+                          window.scrollTo({ top: 0, behavior: 'smooth' });
                         }
                       }}
                       className="px-6 sm:px-8 md:px-12 py-3 sm:py-4 md:py-5 bg-gradient-to-r from-purple-600 to-pink-600 rounded-full font-bold text-sm sm:text-base md:text-xl text-white shadow-2xl hover:shadow-purple-500/50 transition-all duration-300 hover:scale-105 active:scale-95 cursor-pointer"
@@ -696,7 +697,7 @@ export default function Home() {
                   </div>
 
                   <p className="text-xs sm:text-sm text-gray-400 px-4">
-                    No credit card required • Your documents are never stored
+                    No credit card required
                   </p>
                 </div>
               </div>
@@ -716,7 +717,7 @@ export default function Home() {
           </div>
         </div>
       </main>
-      
+
       {/* ✅ Chatbot lazy loaded */}
       <Suspense fallback={null}>
         <Chatbot />

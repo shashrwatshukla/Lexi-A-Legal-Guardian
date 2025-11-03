@@ -60,11 +60,20 @@ export default function RegionSelector({ onSelect }) {
   return (
     <>
       <style jsx>{`
-        /* ✅ FIX: Remove blue outline from search box */
+        /* ✅ FIX: Remove blue outline from search box and make text BLACK */
+        .search-input {
+          color: #000000 !important;
+        }
+        
         .search-input:focus {
           outline: none !important;
           border-color: #42c58a !important;
           box-shadow: 0 0 0 3px rgba(66, 197, 138, 0.1) !important;
+          color: #000000 !important;
+        }
+
+        .search-input::placeholder {
+          color: #9ca3af !important;
         }
 
         /* Custom scrollbar */
@@ -189,16 +198,18 @@ export default function RegionSelector({ onSelect }) {
               maxWidth: "100%"
             }}
           >
-            {/* ✅ FIX: Search input with no blue outline */}
+            {/* ✅ FIX: Search input with BLACK text */}
             <div className="p-3 border-b border-gray-200">
               <input
                 type="text"
                 placeholder="Type to search countries..."
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
-                className="search-input w-full px-3 py-2 border border-gray-300 rounded-lg text-sm text-gray-900 placeholder-gray-400"
+                className="search-input w-full px-3 py-2 border border-gray-300 rounded-lg text-sm"
                 style={{
-                  transition: "all 0.2s"
+                  transition: "all 0.2s",
+                  color: "#000000",
+                  backgroundColor: "#ffffff"
                 }}
               />
             </div>

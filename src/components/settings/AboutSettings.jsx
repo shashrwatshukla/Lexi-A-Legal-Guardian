@@ -150,7 +150,7 @@ export default function AboutSettings() {
 
       {/* Credits & Copyright */}
       <div className="text-center py-6">
-        <p className="text-white/40 text-sm mb-2">Made with ❤️ by the Lexi Team</p>
+        <p className="text-white/40 text-sm mb-2">Best From LEXI Team</p>
         <p className="text-white/20 text-xs">
           © {new Date().getFullYear()} Lexi. All rights reserved.
         </p>

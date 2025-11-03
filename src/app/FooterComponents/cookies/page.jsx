@@ -282,8 +282,8 @@ export default function CookiesPage() {
           </h3>
           <p className="text-white/70 text-sm sm:text-base">
             If you have questions about our use of cookies, please contact:{' '}
-            <a href="mailto:privacy@lexi.ai" className="text-orange-400 hover:text-orange-300 font-semibold">
-              privacy@lexi.ai
+            <a href="mailto:asklexiofficial@gmail.com" className="text-orange-400 hover:text-orange-300 font-semibold">
+              asklexiofficial@gmail.com
             </a>
           </p>
         </div>

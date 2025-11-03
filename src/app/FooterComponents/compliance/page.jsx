@@ -238,8 +238,8 @@ export default function CompliancePage() {
           </h3>
           <p className="text-white/70 text-sm sm:text-base">
             For compliance-related questions or to request audit reports, contact our compliance team at:{' '}
-            <a href="mailto:compliance@lexi.ai" className="text-blue-400 hover:text-blue-300 font-semibold">
-              compliance@lexi.ai
+            <a href="mailto:asklexiofficial@gmail.com" className="text-blue-400 hover:text-blue-300 font-semibold">
+              asklexiofficial@gmail.com
             </a>
           </p>
         </div>

@@ -158,7 +158,6 @@ export default function SupportSettings() {
       {/* Feedback Appreciated */}
       <div className="bg-blue-500/10 backdrop-blur-xl rounded-2xl p-6">
         <div className="flex items-start gap-3">
-          <div className="text-2xl">💙</div>
           <div>
             <h3 className="text-blue-400 font-semibold mb-1">Your Feedback Matters</h3>
             <p className="text-white/60 text-sm leading-relaxed">

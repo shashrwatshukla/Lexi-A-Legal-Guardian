@@ -61,23 +61,8 @@ export default function ContactPage() {
               </div>
               <div>
                 <h3 className="text-white font-semibold text-lg mb-2">Email</h3>
-                <p className="text-white/70">shibapaisa@gmail.com</p>
+                <p className="text-white/70">asklexiofficial@gmail.com</p>
                 <p className="text-white/70 text-sm mt-1">We'll respond within 24 hours</p>
-              </div>
-            </div>
-          </div>
-
-          <div className="backdrop-blur-sm bg-white/5 p-4 sm:p-6 rounded-2xl border border-white/10">
-            <div className="flex items-start gap-4">
-              <div className="w-12 h-12 bg-blue-500/20 rounded-full flex items-center justify-center flex-shrink-0">
-                <svg className="w-6 h-6 text-blue-400" fill="currentColor" viewBox="0 0 24 24">
-                  <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
-                </svg>
-              </div>
-              <div>
-                <h3 className="text-white font-semibold text-lg mb-2">Social Media</h3>
-                <p className="text-white/70">@LexiAI</p>
-                <p className="text-white/70 text-sm mt-1">Follow us for updates</p>
               </div>
             </div>
           </div>

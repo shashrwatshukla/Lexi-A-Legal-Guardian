@@ -123,7 +123,7 @@ export default function PrivacyPage() {
           <section className="backdrop-blur-sm bg-white/5 p-4 sm:p-6 rounded-2xl border border-white/10">
             <h2 className="text-xl sm:text-2xl font-bold text-white mb-4">Contact Us</h2>
             <p className="text-white/70 text-sm sm:text-base">
-              For privacy-related questions, contact us at: <a href="mailto:privacy@lexi.ai" className="text-purple-400 hover:text-purple-300">privacy@lexi.ai</a>
+              For privacy-related questions, contact us at: <a href="mailto:asklexiofficial@gmail.com" className="text-purple-400 hover:text-purple-300">asklexiofficial@gmail.com</a>
             </p>
           </section>
 

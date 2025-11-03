@@ -162,7 +162,7 @@ export default function SecurityPage() {
         <div className="mt-8 backdrop-blur-sm bg-gradient-to-r from-green-500/10 to-blue-500/10 p-4 sm:p-6 rounded-2xl border border-green-500/20">
           <h3 className="text-white font-semibold mb-2 text-base sm:text-lg">Report a Security Issue</h3>
           <p className="text-white/70 text-sm sm:text-base">
-            If you discover a security vulnerability, please report it to: <a href="mailto:security@lexi.ai" className="text-green-400 hover:text-green-300">security@lexi.ai</a>
+            If you discover a security vulnerability, please report it to: <a href="mailto:asklexiofficial@gmail.com" className="text-green-400 hover:text-green-300">asklexiofficial@gmail.com</a>
           </p>
         </div>
       </div>
